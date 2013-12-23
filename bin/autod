@@ -34,7 +34,7 @@ function outputDep(name, values) {
   for (var key in values) {
     deps.push(util.format('    "%s": "%s"', key, values[key]));
   }
-  str += deps.join(',\n') + '\n  }';
+  str += deps.sort().join(',\n') + '\n  }';
   return str;
 }
 
