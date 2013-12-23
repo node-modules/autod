@@ -1,7 +1,35 @@
 
 # autod
 
-  auto generate dependencies
+Auto generate dependencies and devDependencies by parse the project file.  
+`autod` will parse all the js files in `path`, and get the latest dependencies version from [cnpm](http://registry.cnpmjs.org) or other registries by `-r`.
+
+## install  
+
+```bash
+$ npm install -g autod
+```
+
+## usage  
+
+```bash
+$ bin/autod -h
+
+  Usage: autod [options]
+
+  Options:
+
+    -h, --help                           output usage information
+    -p, --path [folder path]             the folder path to be parse
+    -t, --test <test folder path>        the test folder path to be parse
+    -e, --exclude <exclude folder path>  exclude parse folder, split by `,`
+    -r, --registry <remote registry>     get latest version from which registry
+    -w, --write                          write dependencies into package.json
+
+```
+
+Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`. All the modules in test folder (can be alter by `-t, --text`) will parsed as devDependencies.
+If you set `-w, --write`, `autod` will write the dependencies into package.json file. `dependencies` will replace `dependencies` in package.json, and `devDependencies` will merge with `devDependencies` in package.json, then write into package file.
 
 ## License 
 
