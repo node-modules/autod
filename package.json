@@ -10,13 +10,13 @@
   },
   "main": "index",
   "dependencies": {
+    "urllib": "0.5.5",
     "bagpipe": "0.3.5",
     "debug": "0.7.4",
-    "urllib": "0.5.5",
     "eventproxy": "0.2.6"
   },
   "devDependencies": {
-    "mm": "0.1.7",
-    "should": "2.1.1"
+    "should": "2.1.1",
+    "mm": "0.1.7"
   }
 }
