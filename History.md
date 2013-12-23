@@ -1,4 +1,9 @@
 
+0.0.2 / 2013-12-23 
+==================
+
+  * support extname not equal to .js, fix `bin/autop` not be parsed
+
 0.0.1 / 2013-12-23 
 ==================
 
