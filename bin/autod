@@ -14,21 +14,100 @@
 
 var program = require('commander');
 var autod = require('../');
+var util = require('util');
+var resolve = require('path').resolve;
+var pjoin = require('path').join;
+var fs = require('fs');
 
 var argv = program
-  .version(require('../package.json').version)
+  // .version(require('../package.json').version)
   .option('-p, --path [folder path]', 'the folder path to be parse', '.')
   .option('-t, --test <test folder path>', 'the test folder path to be parse', 'test')
-  .option('-e, --exclude <exclude folder path>', 'exclude parse folder')
+  .option('-e, --exclude <exclude folder path>', 'exclude parse folder, split by `,`')
   .option('-r, --registry <remote registry>', 'get latest version from which registry', 'http://registry.cnpmjs.org')
   .option('-w, --write', 'write dependencies into package.json')
   .parse(process.argv);
 
+function outputDep(name, values) {
+  var str = util.format('  "%s": {\n', name);
+  var deps = []; 
+  for (var key in values) {
+    deps.push(util.format('    "%s": "%s"', key, values[key]));
+  }
+  str += deps.join(',\n') + '\n  }';
+  return str;
+}
+
+function output(result) {
+  var str = outputDep('dependencies', result.dependencies);
+  if (!Object.keys(result.devDependencies).length) {
+    return str;
+  }
+  str += ',\n' + outputDep('devDependencies', result.devDependencies);
+  return str;
+}
+
+function writePackage(result) {
+  var pkgInfo;
+  var pkgStr;
+  var pkgExist = true;
+  var pkgPath = pjoin(resolve(argv.path), 'package.json');
+  try {
+    pkgInfo = require(pkgPath);
+    pkgStr = fs.readFileSync(pkgPath, 'utf-8');
+  } catch (err) {
+    if (err.code === 'MODULE_NOT_FOUND') {
+      pkgInfo = {};
+      pkgExist = false;
+    } else {
+      console.log(output(result));
+      console.error('`package.json` parsed error: %s', err.message);
+      process.exist(1);
+    }
+  }
+
+  if (!pkgExist) {
+    console.log('`package.json` not exist, auto generate and write dependencies.');
+    fs.writeFileSync(pkgPath, '{\n' + output(result) + '\n}\n', 'utf-8');
+    return;
+  }
+
+  if (pkgInfo.dependencies) {
+    pkgStr = pkgStr.replace(/( |\t)*"dependencies"\s*:\s*{(.|\n)*?}/,
+      outputDep('dependencies', result.dependencies));
+  } else {
+    pkgStr = pkgStr.replace(/(\s*)(\}\n*\s*)$/, function (end, before, after) {
+      return ',' + before + outputDep('dependencies', result.dependencies) + '\n' + after;
+    });
+  }
+
+  if (pkgInfo.devDependencies) {
+    //merge parsed into devDependencies
+    for (var key in pkgInfo.devDependencies) {
+      if (!result.devDependencies[key]) {
+        result.devDependencies[key] = pkgInfo.devDependencies[key];
+      }
+    }
+    pkgStr = pkgStr.replace(/( |\t)*"devDependencies"\s*:\s*{(.|\n)*?}/,
+      outputDep('devDependencies', result.devDependencies));
+  } else {
+    pkgStr = pkgStr.replace(/(\s*)(\}\n*\s*)$/, function (end, before, after) {
+      return ',' + before + outputDep('devDependencies', result.devDependencies) + '\n' + after;
+    });
+  }
+  console.log('Write dependencies into package.json.');
+  fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
+}
+
 autod({
   registry: argv.registry,
-  exclude: argv.exclude,
+  exclude: argv.exclude && argv.exclude.split(','),
   root: argv.path,
   testRoot: argv.test
 }).parse(function (err, result) {
-  console.log(result);
+  if (argv.write) {
+    writePackage(result);
+  } else {
+    console.log(output(result));
+  }
 });
