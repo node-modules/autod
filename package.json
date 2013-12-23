@@ -16,5 +16,8 @@
     "mocha": "*",
     "should": "*"
   },
+  "bin": {
+    "autod": "bin/autod"
+  },
   "main": "index"
 }
