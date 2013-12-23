@@ -1,0 +1,20 @@
+{
+  "name": "autod",
+  "version": "0.0.1",
+  "description": "auto generate dependencies",
+  "keywords": [],
+  "author": "dead_horse <dead_horse@qq.com>",
+  "repository": { "type": "git", "url": "git://github.com/dead-horse/autod.git" },
+  "dependencies": {
+    "commander": "2.1.0",
+    "debug": "0.7.4",
+    "bagpipe": "0.3.5",
+    "eventproxy": "0.2.6",
+    "urllib": "0.5.5"
+    },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "main": "index"
+}
