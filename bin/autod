@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+/*!
+ * autod - bin/autod.js
+ * Copyright(c) 2013 
+ * Author: dead_horse <undefined>
+ */
+
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var autod = require('../');
+
+var argv = program
+  .version(require('../package.json').version)
+  .option('-p, --path [folder path]', 'the folder path to be parse', '.')
+  .option('-t, --test <test folder path>', 'the test folder path to be parse', 'test')
+  .option('-e, --exclude <exclude folder path>', 'exclude parse folder')
+  .option('-r, --registry <remote registry>', 'get latest version from which registry', 'http://registry.cnpmjs.org')
+  .option('-w, --write', 'write dependencies into package.json')
+  .parse(process.argv);
+
+autod({
+  registry: argv.registry,
+  exclude: argv.exclude,
+  root: argv.path,
+  testRoot: argv.test
+}).parse(function (err, result) {
+  console.log(result);
+});
