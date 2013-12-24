@@ -3,7 +3,7 @@
 /*!
  * autod - bin/autod.js
  * Copyright(c) 2013 
- * Author: dead_horse <undefined>
+ * Author: dead_horse <dead_horse@qq.com> (http://deadhorse.me)
  */
 
 'use strict';
@@ -67,6 +67,7 @@ function writePackage(result) {
   }
 
   if (!pkgExist) {
+    console.log(output(result));
     console.log('`package.json` not exist, auto generate and write dependencies.');
     fs.writeFileSync(pkgPath, '{\n' + output(result) + '\n}\n', 'utf-8');
     return;
@@ -95,6 +96,7 @@ function writePackage(result) {
       return ',' + before + outputDep('devDependencies', result.devDependencies) + '\n' + after;
     });
   }
+  console.log(output(result));
   console.log('Write dependencies into package.json.');
   fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
 }
