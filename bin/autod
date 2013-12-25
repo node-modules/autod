@@ -25,14 +25,16 @@ var argv = program
   .option('-t, --test <test folder path>', 'the test folder path to be parse', 'test')
   .option('-e, --exclude <exclude folder path>', 'exclude parse folder, split by `,`')
   .option('-r, --registry <remote registry>', 'get latest version from which registry', 'http://registry.cnpmjs.org')
+  .option('-f, --prefix [version prefix]', 'version prefix, can be `~` or `>=`')
   .option('-w, --write', 'write dependencies into package.json')
+  .option('-i, --ignore', 'ignore errors, display the dependencies or write the dependencies.')
   .parse(process.argv);
-
+console.log(argv);
 function outputDep(name, values) {
   var str = util.format('  "%s": {\n', name);
   var deps = []; 
   for (var key in values) {
-    deps.push(util.format('    "%s": "%s"', key, values[key]));
+    deps.push(util.format('    "%s": "%s%s"', key, argv.prefix, values[key]));
   }
   str += deps.sort().join(',\n') + '\n  }';
   return str;
@@ -107,6 +109,14 @@ autod({
   root: argv.path,
   testRoot: argv.test
 }).parse(function (err, result) {
+  if (err) {
+    console.error(err.message);
+    err.errorMap && console.log('Error packages path map:\n',
+     util.inspect(err.errorMap, {depth: 3, colors: true}));
+    if (!argv.i) {
+      process.exit(1);
+    }
+  }
   if (argv.write) {
     writePackage(result);
   } else {

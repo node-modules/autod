@@ -10,4 +10,4 @@
  * Module dependencies.
  */
 var mm = require('mm');
-var should = require('should');
+var should = require('should_123');
