@@ -1,4 +1,10 @@
 
+0.0.5 / 2013-12-25 
+==================
+
+  * add -m options to display denpendencies map
+  * update readme
+
 0.0.4 / 2013-12-25 
 ==================
 
