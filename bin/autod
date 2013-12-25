@@ -29,6 +29,7 @@ var argv = program
   .option('-f, --prefix [version prefix]', 'version prefix, can be `~` or `>=`')
   .option('-w, --write', 'write dependencies into package.json')
   .option('-i, --ignore', 'ignore errors, display the dependencies or write the dependencies.')
+  .option('-m, --map', 'display all the dependencies require by which file')
   .parse(process.argv);
 
 if (argv.prefix && argv.prefix !== '>=') {
@@ -128,6 +129,10 @@ autod({
     writePackage(result);
   } else {
     console.log(output(result));
+  }
+  if (argv.map) {
+    console.log('\n[DEPENDENCY MAP]\n'.green);
+    console.log(util.inspect(result.map, {depth: 3, colors: true}));
   }
 }).on('warn', function (msg) {
   console.warn('[warn] '.yellow, msg);

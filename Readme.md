@@ -29,7 +29,7 @@ $ bin/autod -h
     -f, --prefix [version prefix]        version prefix, can be `~` or `>=`
     -w, --write                          write dependencies into package.json
     -i, --ignore                         ignore errors, display the dependencies or write the dependencies.
-
+    -m, --map                            display all the dependencies require by which file
 ```
 
 * Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`. 
