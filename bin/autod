@@ -21,7 +21,7 @@ var fs = require('fs');
 var color = require('colors');
 
 var argv = program
-  // .version(require('../package.json').version)
+  .version(require('../package.json').version)
   .option('-p, --path [folder path]', 'the folder path to be parse', '.')
   .option('-t, --test <test folder path>', 'the test folder path to be parse', 'test')
   .option('-e, --exclude <exclude folder path>', 'exclude parse folder, split by `,`')
