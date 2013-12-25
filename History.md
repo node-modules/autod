@@ -1,4 +1,12 @@
 
+0.0.4 / 2013-12-25 
+==================
+
+  * add ignore, add color
+  * add file map and --prefix
+  * add file map and --prefix
+  * add nodeICO
+
 0.0.3 / 2013-12-24 
 ==================
 
