@@ -18,6 +18,7 @@ var util = require('util');
 var resolve = require('path').resolve;
 var pjoin = require('path').join;
 var fs = require('fs');
+var color = require('colors');
 
 var argv = program
   // .version(require('../package.json').version)
@@ -29,12 +30,16 @@ var argv = program
   .option('-w, --write', 'write dependencies into package.json')
   .option('-i, --ignore', 'ignore errors, display the dependencies or write the dependencies.')
   .parse(process.argv);
-console.log(argv);
+
+if (argv.prefix && argv.prefix !== '>=') {
+  argv.prefix = '~';
+}
+
 function outputDep(name, values) {
   var str = util.format('  "%s": {\n', name);
   var deps = []; 
   for (var key in values) {
-    deps.push(util.format('    "%s": "%s%s"', key, argv.prefix, values[key]));
+    deps.push(util.format('    "%s": "%s%s"', key, argv.prefix || '', values[key]));
   }
   str += deps.sort().join(',\n') + '\n  }';
   return str;
@@ -70,9 +75,9 @@ function writePackage(result) {
 
   if (!pkgExist) {
     console.log(output(result));
-    console.log('`package.json` not exist, auto generate and write dependencies.');
+    console.log('[WARN]'.yellow + ' `package.json` not exist, auto generate and write dependencies.');
     fs.writeFileSync(pkgPath, '{\n' + output(result) + '\n}\n', 'utf-8');
-    return;
+    process.exit(0);
   }
 
   if (pkgInfo.dependencies) {
@@ -99,8 +104,9 @@ function writePackage(result) {
     });
   }
   console.log(output(result));
-  console.log('Write dependencies into package.json.');
+  console.log('[INFO]'.green + ' Write dependencies into package.json.');
   fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
+  process.exit(0);
 }
 
 autod({
@@ -110,16 +116,20 @@ autod({
   testRoot: argv.test
 }).parse(function (err, result) {
   if (err) {
-    console.error(err.message);
-    err.errorMap && console.log('Error packages path map:\n',
+    console.error('[ERROR]'.red, err.message);
+    err.errorMap && console.log('[ERROR]'.red + ' Error packages path map:\n',
      util.inspect(err.errorMap, {depth: 3, colors: true}));
-    if (!argv.i) {
+    if (!argv.ignore) {
       process.exit(1);
     }
   }
+  console.log('\n[DEPENDENCIES]\n'.green);
   if (argv.write) {
     writePackage(result);
   } else {
     console.log(output(result));
   }
+}).on('warn', function (msg) {
+  console.warn('[warn] '.yellow, msg);
+  process.exit(0);
 });
