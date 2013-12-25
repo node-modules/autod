@@ -26,13 +26,18 @@ $ bin/autod -h
     -t, --test <test folder path>        the test folder path to be parse
     -e, --exclude <exclude folder path>  exclude parse folder, split by `,`
     -r, --registry <remote registry>     get latest version from which registry
+    -f, --prefix [version prefix]        version prefix, can be `~` or `>=`
     -w, --write                          write dependencies into package.json
+    -i, --ignore                         ignore errors, display the dependencies or write the dependencies.
 
 ```
 
-Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`. All the modules in test folder (can be alter by `-t, --text`) will parsed as devDependencies.
-If you set `-w, --write`, `autod` will write the dependencies into package.json file. `dependencies` will replace `dependencies` in package.json, and `devDependencies` will merge with `devDependencies` in package.json, then write into package file.
-
+* Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`. 
+* All the modules in test folder (can be alter by `-t, --text`) will parsed as devDependencies.
+* If you set `-w, --write`, `autod` will write the dependencies into package.json file. `dependencies` will replace `dependencies` in package.json, and `devDependencies` will merge with `devDependencies` in package.json, then write into package file.
+* `-f, --prefix` will add prefix to each dependencies' version.
+* `-i, --ignore` will display or wrtie the dependencies even some error happened.  
+ 
 ## License 
 
 (The MIT License)
