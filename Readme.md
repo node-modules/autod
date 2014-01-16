@@ -3,16 +3,16 @@
 
 [![NPM](https://nodei.co/npm/autod.png)](https://nodei.co/npm/autod/)
 
-Auto generate dependencies and devDependencies by parse the project file.  
+Auto generate dependencies and devDependencies by parse the project file.
 `autod` will parse all the js files in `path`, and get the latest dependencies version from [cnpm](http://registry.cnpmjs.org) or other registries by `-r`.
 
-## install  
+## install
 
 ```bash
 $ npm install -g autod
 ```
 
-## usage  
+## usage
 
 ```bash
 $ bin/autod -h
@@ -30,15 +30,16 @@ $ bin/autod -h
     -w, --write                          write dependencies into package.json
     -i, --ignore                         ignore errors, display the dependencies or write the dependencies.
     -m, --map                            display all the dependencies require by which file
+    -d, --dep <dependence modules>       modules that not require by file, but you really need them
 ```
 
-* Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`. 
+* Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`.
 * All the modules in test folder (can be alter by `-t, --text`) will parsed as devDependencies.
 * If you set `-w, --write`, `autod` will write the dependencies into package.json file. `dependencies` will replace `dependencies` in package.json, and `devDependencies` will merge with `devDependencies` in package.json, then write into package file.
 * `-f, --prefix` will add prefix to each dependencies' version.
-* `-i, --ignore` will display or wrtie the dependencies even some error happened.  
- 
-## License 
+* `-i, --ignore` will display or wrtie the dependencies even some error happened.
+
+## License
 
 (The MIT License)
 
