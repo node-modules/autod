@@ -2,7 +2,7 @@
 
 /*!
  * autod - bin/autod.js
- * Copyright(c) 2013 
+ * Copyright(c) 2013
  * Author: dead_horse <dead_horse@qq.com> (http://deadhorse.me)
  */
 
@@ -30,6 +30,7 @@ var argv = program
   .option('-w, --write', 'write dependencies into package.json')
   .option('-i, --ignore', 'ignore errors, display the dependencies or write the dependencies.')
   .option('-m, --map', 'display all the dependencies require by which file')
+  .option('-d, --dep <dependence modules>', 'modules that not require by file, but you really need them')
   .parse(process.argv);
 
 if (argv.prefix && argv.prefix !== '>=') {
@@ -38,7 +39,7 @@ if (argv.prefix && argv.prefix !== '>=') {
 
 function outputDep(name, values) {
   var str = util.format('  "%s": {\n', name);
-  var deps = []; 
+  var deps = [];
   for (var key in values) {
     deps.push(util.format('    "%s": "%s%s"', key, argv.prefix || '', values[key]));
   }
@@ -113,6 +114,7 @@ function writePackage(result) {
 autod({
   registry: argv.registry,
   exclude: argv.exclude && argv.exclude.split(','),
+  dep: argv.dep && argv.dep.split(','),
   root: argv.path,
   testRoot: argv.test
 }).parse(function (err, result) {

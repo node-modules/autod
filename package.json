@@ -15,10 +15,11 @@
     "commander": "2.1.0",
     "debug": "0.7.4",
     "eventproxy": "0.2.6",
+    "nan": "0.8.0",
     "urllib": "0.5.5"
   },
   "devDependencies": {
-    "mm": "0.1.7",
+    "mm": "0.1.8",
     "mocha": "*",
     "should": "2.1.1"
   }
