@@ -31,6 +31,7 @@ var argv = program
   .option('-i, --ignore', 'ignore errors, display the dependencies or write the dependencies.')
   .option('-m, --map', 'display all the dependencies require by which file')
   .option('-d, --dep <dependence modules>', 'modules that not require by file, but you really need them')
+  .option('-k, --keep <dependencies modules>', 'modules that you want to keep version in package.json file')
   .parse(process.argv);
 
 if (argv.prefix && argv.prefix !== '>=') {
@@ -83,6 +84,15 @@ function writePackage(result) {
   }
 
   if (pkgInfo.dependencies) {
+    // keep these modules version, won't change by autod
+    if (argv.keep) {
+      argv.keep.split(',').forEach(function (key) {
+        if (pkgInfo.dependencies[key]) {
+          result.dependencies[key] = pkgInfo.dependencies[key];
+        }
+      });
+    }
+
     pkgStr = pkgStr.replace(/( |\t)*"dependencies"\s*:\s*{(.|\n)*?}/,
       outputDep('dependencies', result.dependencies));
   } else {
