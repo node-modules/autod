@@ -31,6 +31,7 @@ $ bin/autod -h
     -i, --ignore                         ignore errors, display the dependencies or write the dependencies.
     -m, --map                            display all the dependencies require by which file
     -d, --dep <dependence modules>       modules that not require by file, but you really need them
+    -k, --keep <dependencies modules>    modules that you want to keep version in package.json file
 ```
 
 * Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`.
@@ -38,6 +39,8 @@ $ bin/autod -h
 * If you set `-w, --write`, `autod` will write the dependencies into package.json file. `dependencies` will replace `dependencies` in package.json, and `devDependencies` will merge with `devDependencies` in package.json, then write into package file.
 * `-f, --prefix` will add prefix to each dependencies' version.
 * `-i, --ignore` will display or wrtie the dependencies even some error happened.
+* `-d --dep` will add modules to package.json even not require by any file.
+* `-k --keep` will keep the modules' version in package.json not change by autod.
 
 ## License
 

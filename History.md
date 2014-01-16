@@ -1,4 +1,9 @@
 
+0.0.11 / 2014-01-17
+==================
+
+  * add -k --keep options, to keep version not change in package.json
+
 0.0.10 / 2014-01-16
 ==================
 
