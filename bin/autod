@@ -18,6 +18,7 @@ var util = require('util');
 var resolve = require('path').resolve;
 var pjoin = require('path').join;
 var fs = require('fs');
+var printable = require('printable');
 var color = require('colors');
 
 var argv = program
@@ -57,6 +58,22 @@ function output(result) {
   return str;
 }
 
+function printUpdates(title, latest, old) {
+  var arr = [['Package Name', 'Old Version', 'Latest Version']];
+  for (var key in latest) {
+    if (!old[key]) {
+      arr.push([key, '-', latest[key]]);
+    } else if (old[key] !== latest[key]) {
+      arr.push([key, old[key], latest[key]]);
+    }
+  }
+  if (arr.length > 1) {
+    console.log('\n' + (title + ' updates').yellow);
+    console.log(printable.print(arr));
+    console.log();
+  }
+}
+
 function writePackage(result) {
   var pkgInfo;
   var pkgStr;
@@ -92,7 +109,6 @@ function writePackage(result) {
         }
       });
     }
-
     pkgStr = pkgStr.replace(/( |\t)*"dependencies"\s*:\s*{(.|\n)*?}/,
       outputDep('dependencies', result.dependencies));
   } else {
@@ -116,6 +132,8 @@ function writePackage(result) {
     });
   }
   console.log(output(result));
+  printUpdates('Dependencies', result.dependencies, pkgInfo.dependencies);
+  printUpdates('DevDependencies', result.devDependencies, pkgInfo.devDependencies);
   console.log('[INFO]'.green + ' Write dependencies into package.json.');
   fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
   process.exit(0);

@@ -15,11 +15,12 @@
     "commander": "2.1.0",
     "debug": "0.7.4",
     "eventproxy": "0.2.6",
+    "printable": "0.0.3",
     "urllib": "0.5.5"
   },
   "devDependencies": {
     "mm": "0.1.8",
     "mocha": "*",
-    "should": "2.1.1"
+    "should": "3.0.1"
   }
 }
