@@ -59,6 +59,8 @@ function output(result) {
 }
 
 function printUpdates(title, latest, old) {
+  latest = latest || {};
+  old = old || {};
   var arr = [['Package Name', 'Old Version', 'Latest Version']];
   for (var key in latest) {
     if (!old[key]) {
