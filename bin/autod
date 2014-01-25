@@ -83,7 +83,7 @@ function printUpdates(title, latest, old, remove) {
   }
 }
 
-function writePackage(result) {
+function comparePackage(result) {
   var pkgInfo;
   var pkgStr;
   var pkgExist = true;
@@ -104,8 +104,10 @@ function writePackage(result) {
 
   if (!pkgExist) {
     console.log(output(result));
-    console.log('[WARN]'.yellow + ' `package.json` not exist, auto generate and write dependencies.');
-    fs.writeFileSync(pkgPath, '{\n' + output(result) + '\n}\n', 'utf-8');
+    if (argv.write) {
+      console.log('[WARN]'.yellow + ' `package.json` not exist, auto generate and write dependencies.');
+      fs.writeFileSync(pkgPath, '{\n' + output(result) + '\n}\n', 'utf-8');
+    }
     process.exit(0);
   }
 
@@ -143,8 +145,10 @@ function writePackage(result) {
   console.log(output(result));
   printUpdates('Dependencies', result.dependencies, pkgInfo.dependencies, true);
   printUpdates('DevDependencies', result.devDependencies, pkgInfo.devDependencies);
-  console.log('[INFO]'.green + ' Write dependencies into package.json.');
-  fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
+  if (argv.write) {
+    console.log('[INFO]'.green + ' Write dependencies into package.json.');
+    fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
+  }
   process.exit(0);
 }
 
@@ -164,11 +168,7 @@ autod({
     }
   }
   console.log('\n[DEPENDENCIES]\n'.green);
-  if (argv.write) {
-    writePackage(result);
-  } else {
-    console.log(output(result));
-  }
+  comparePackage(result);
   if (argv.map) {
     console.log('\n[DEPENDENCY MAP]\n'.green);
     console.log(util.inspect(result.map, {depth: 3, colors: true}));
