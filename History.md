@@ -1,4 +1,10 @@
 
+0.1.0 / 2014-01-25
+==================
+
+  * print all the info even not write package.json
+  * add print removed modules
+
 0.0.13 / 2014-01-22
 ==================
 
