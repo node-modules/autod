@@ -21,6 +21,6 @@
   "devDependencies": {
     "mm": "0.1.8",
     "mocha": "*",
-    "should": "3.0.1"
+    "should": "3.1.0"
   }
 }

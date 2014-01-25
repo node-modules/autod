@@ -58,7 +58,7 @@ function output(result) {
   return str;
 }
 
-function printUpdates(title, latest, old) {
+function printUpdates(title, latest, old, remove) {
   latest = latest || {};
   old = old || {};
   var arr = [['Package Name', 'Old Version', 'Latest Version']];
@@ -67,6 +67,13 @@ function printUpdates(title, latest, old) {
       arr.push([key, '-', latest[key]]);
     } else if (old[key] !== latest[key]) {
       arr.push([key, old[key], latest[key]]);
+    }
+  }
+  if (remove) {
+    for (var key in old) {
+      if (!latest[key]) {
+        arr.push([key, old[key], 'remove']);
+      }
     }
   }
   if (arr.length > 1) {
@@ -134,7 +141,7 @@ function writePackage(result) {
     });
   }
   console.log(output(result));
-  printUpdates('Dependencies', result.dependencies, pkgInfo.dependencies);
+  printUpdates('Dependencies', result.dependencies, pkgInfo.dependencies, true);
   printUpdates('DevDependencies', result.devDependencies, pkgInfo.devDependencies);
   console.log('[INFO]'.green + ' Write dependencies into package.json.');
   fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
