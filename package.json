@@ -14,13 +14,13 @@
     "colors": "0.6.2",
     "commander": "2.1.0",
     "debug": "0.7.4",
-    "eventproxy": "0.2.6",
+    "eventproxy": "0.2.7",
     "printable": "0.0.3",
     "urllib": "0.5.5"
   },
   "devDependencies": {
-    "mm": "0.1.8",
+    "mm": "0.2.0",
     "mocha": "*",
-    "should": "3.1.0"
+    "should": "3.1.3"
   }
 }
