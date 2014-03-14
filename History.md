@@ -1,5 +1,12 @@
 
-n.n.n / 2014-03-02
+0.1.2 / 2014-03-14 
+==================
+
+  * Merge pull request #5 from fengmk2/gzip
+  * update urllib to support gzip and add full user-agent
+  * remove test folder
+
+0.1.1 / 2014-03-02
 ==================
 
   * fix reg error
