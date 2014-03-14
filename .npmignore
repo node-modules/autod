@@ -13,3 +13,4 @@ test
 t.js
 Makefile
 
+.jshint*
