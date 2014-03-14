@@ -14,9 +14,9 @@
     "colors": "0.6.2",
     "commander": "2.1.0",
     "debug": "0.7.4",
-    "eventproxy": "0.2.7",
+    "eventproxy": "0.3.0",
     "printable": "0.0.3",
-    "urllib": "0.5.5"
+    "urllib": "0.5.11"
   },
   "devDependencies": {
     "mm": "0.2.0",
