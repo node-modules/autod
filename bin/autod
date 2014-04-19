@@ -39,11 +39,13 @@ if (argv.prefix && argv.prefix !== '>=') {
   argv.prefix = '~';
 }
 
+var re = new RegExp('^' + argv.prefix);
 function outputDep(name, values) {
   var str = util.format('  "%s": {\n', name);
   var deps = [];
   for (var key in values) {
-    deps.push(util.format('    "%s": "%s%s"', key, argv.prefix || '', values[key]));
+    var val = values[key].replace(re, '');
+    deps.push(util.format('    "%s": "%s%s"', key, argv.prefix || '', val));
   }
   str += deps.sort().join(',\n') + '\n  }';
   return str;
