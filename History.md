@@ -1,11 +1,18 @@
 
-0.1.3 / 2014-04-10 
+n.n.n / 2014-04-20
+==================
+
+  * fix prefix, default registry to taobao registry
+  * Merge pull request #7 from popomore/master
+  * fix double prefix in devDependencies
+
+0.1.3 / 2014-04-10
 ==================
 
   * Merge pull request #6 from node-modules/timeout
   * increase request timeout
 
-0.1.2 / 2014-03-14 
+0.1.2 / 2014-03-14
 ==================
 
   * Merge pull request #5 from fengmk2/gzip
