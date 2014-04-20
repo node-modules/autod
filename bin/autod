@@ -35,17 +35,15 @@ var argv = program
   .option('-k, --keep <dependencies modules>', 'modules that you want to keep version in package.json file')
   .parse(process.argv);
 
-if (argv.prefix && argv.prefix !== '>=') {
-  argv.prefix = '~';
+if (argv.prefix && argv.prefix !== '~') {
+  argv.prefix = '^';
 }
 
-var re = new RegExp('^' + argv.prefix);
 function outputDep(name, values) {
   var str = util.format('  "%s": {\n', name);
   var deps = [];
   for (var key in values) {
-    var val = values[key].replace(re, '');
-    deps.push(util.format('    "%s": "%s%s"', key, argv.prefix || '', val));
+    deps.push(util.format('    "%s": "%s"', key, values[key]));
   }
   str += deps.sort().join(',\n') + '\n  }';
   return str;
@@ -90,6 +88,17 @@ function comparePackage(result) {
   var pkgStr;
   var pkgExist = true;
   var pkgPath = pjoin(resolve(argv.path), 'package.json');
+
+  // add prefix
+  if (argv.prefix) {
+    for (var key in result.dependencies) {
+      result.dependencies[key] = argv.prefix + result.dependencies[key];
+    }
+    for (var key in result.devDependencies) {
+      result.devDependencies[key] = argv.prefix + result.devDependencies[key];
+    }
+  }
+
   try {
     pkgInfo = require(pkgPath);
     pkgStr = fs.readFileSync(pkgPath, 'utf-8');
@@ -156,8 +165,8 @@ function comparePackage(result) {
 
 autod({
   registry: argv.registry,
-  exclude: argv.exclude && argv.exclude.split(','),
-  dep: argv.dep && argv.dep.split(','),
+  exclude: argv.exclude && argv.exclude.split(/\s*,\s*/),
+  dep: argv.dep && argv.dep.split(/\s*,\s*/),
   root: argv.path,
   testRoot: argv.test
 }).parse(function (err, result) {
