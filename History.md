@@ -1,4 +1,10 @@
 
+n.n.n / 2014-05-25
+==================
+
+  * add minimatch, fixed #8
+  * update default registry
+
 n.n.n / 2014-04-20
 ==================
 
