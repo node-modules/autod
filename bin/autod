@@ -20,6 +20,7 @@ var pjoin = require('path').join;
 var fs = require('fs');
 var printable = require('printable');
 var color = require('colors');
+var minimatch = require("minimatch");
 
 var argv = program
   .version(require('../package.json').version)
@@ -77,9 +78,11 @@ function printUpdates(title, latest, old, remove) {
     }
   }
   if (arr.length > 1) {
-    console.log('\n' + (title + ' updates').yellow);
+    console.log((title + ' updates').yellow + '\n');
     console.log(printable.print(arr));
     console.log();
+  } else {
+    console.log(('nothing to update in ' + title).green + '\n');
   }
 }
 
@@ -126,8 +129,16 @@ function comparePackage(result) {
     // keep these modules version, won't change by autod
     if (argv.keep) {
       argv.keep.split(',').forEach(function (key) {
-        if (pkgInfo.dependencies[key]) {
-          result.dependencies[key] = pkgInfo.dependencies[key];
+        for (var pkgKey in pkgInfo.dependencies) {
+          if (minimatch(pkgKey, key)) {
+            result.dependencies[pkgKey] = pkgInfo.dependencies[pkgKey];
+          }
+        }
+
+        for (var pkgKey in pkgInfo.devDependencies) {
+          if (minimatch(pkgKey, key)) {
+            result.devDependencies[key] = pkgInfo.devDependencies[key];
+          }
         }
       });
     }
