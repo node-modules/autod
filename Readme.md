@@ -1,10 +1,10 @@
 
 # autod
 
-[![NPM](https://nodei.co/npm/autod.png)](https://nodei.co/npm/autod/)
+[![NPM](https://nodei.co/npm/autod.svg)](https://nodei.co/npm/autod/)
 
 Auto generate dependencies and devDependencies by parse the project file.
-`autod` will parse all the js files in `path`, and get the latest dependencies version from [cnpm](http://registry.cnpmjs.org) or other registries by `-r`.
+`autod` will parse all the js files in `path`, and get the latest dependencies version from [registry.npm.taobao.org](http://registry.npm.taobao.org) or other registries by `-r`.
 
 ## install
 
