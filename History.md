@@ -1,11 +1,17 @@
 
-n.n.n / 2014-05-25
+0.2.1 / 2014-06-06
+==================
+
+  * support mz/fs type
+  * update registry link in readme
+
+0.2.0 / 2014-05-25
 ==================
 
   * add minimatch, fixed #8
   * update default registry
 
-n.n.n / 2014-04-20
+0.1.4 / 2014-04-20
 ==================
 
   * fix prefix, default registry to taobao registry
