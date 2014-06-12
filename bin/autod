@@ -28,7 +28,7 @@ var argv = program
   .option('-t, --test <test folder path>', 'the test folder path to be parse', 'test')
   .option('-e, --exclude <exclude folder path>', 'exclude parse folder, split by `,`')
   .option('-r, --registry <remote registry>', 'get latest version from which registry', 'http://registry.npm.taobao.org')
-  .option('-f, --prefix [version prefix]', 'version prefix, can be `~` or `>=`')
+  .option('-f, --prefix [version prefix]', 'version prefix, can be `~` or `^`')
   .option('-w, --write', 'write dependencies into package.json')
   .option('-i, --ignore', 'ignore errors, display the dependencies or write the dependencies.')
   .option('-m, --map', 'display all the dependencies require by which file')
