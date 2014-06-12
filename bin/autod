@@ -34,6 +34,7 @@ var argv = program
   .option('-m, --map', 'display all the dependencies require by which file')
   .option('-d, --dep <dependence modules>', 'modules that not require by file, but you really need them')
   .option('-k, --keep <dependencies modules>', 'modules that you want to keep version in package.json file')
+  .option('-a, --arbitrary [dependence type]', 'ignore the devDependencies module, if it is set to `*`, can be `dev`')
   .parse(process.argv);
 
 if (argv.prefix && argv.prefix !== '~') {
@@ -155,6 +156,9 @@ function comparePackage(result) {
     for (var key in pkgInfo.devDependencies) {
       if (!result.devDependencies[key]) {
         result.devDependencies[key] = pkgInfo.devDependencies[key];
+      }
+      if (argv.arbitrary && argv.arbitrary === 'dev' && pkgInfo.devDependencies[key] === '*') {
+        result.devDependencies[key] = '*';
       }
     }
     pkgStr = pkgStr.replace(/( |\t)*"devDependencies"\s*:\s*{(.|\n)*?}/,
