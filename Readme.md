@@ -32,6 +32,7 @@ $ bin/autod -h
     -m, --map                            display all the dependencies require by which file
     -d, --dep <dependence modules>       modules that not require by file, but you really need them
     -k, --keep <dependencies modules>    modules that you want to keep version in package.json file
+    -a, --arbitrary [dependence type]    ignore the devDependencies module, if it is set to `*`, can be `dev`
 ```
 
 * Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`.
