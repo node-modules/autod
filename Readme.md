@@ -26,7 +26,7 @@ $ bin/autod -h
     -t, --test <test folder path>        the test folder path to be parse
     -e, --exclude <exclude folder path>  exclude parse folder, split by `,`
     -r, --registry <remote registry>     get latest version from which registry
-    -f, --prefix [version prefix]        version prefix, can be `~` or `>=`
+    -f, --prefix [version prefix]        version prefix, can be `~` or `^`
     -w, --write                          write dependencies into package.json
     -i, --ignore                         ignore errors, display the dependencies or write the dependencies.
     -m, --map                            display all the dependencies require by which file
