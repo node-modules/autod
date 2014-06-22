@@ -56,7 +56,10 @@ autod:
 then run `make autod`, it will find all the dependencies and devDependencies in your project,
 add / remove dependencies, and bump the versions.
 
-check out an example [here](https://github.com/cnpm/cnpmjs.org/blob/master/Makefile#L50)
+check out some examples:
+
+ - [cnpmjs.org](https://github.com/cnpm/cnpmjs.org/blob/master/Makefile#L50)
+ - [koa-sess](https://github.com/koajs/koa-session/blob/master/Makefile#L41)
 
 ## License
 
