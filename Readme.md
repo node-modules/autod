@@ -42,6 +42,22 @@ $ bin/autod -h
 * `-d --dep` will add modules to package.json even not require by any file.
 * `-k --keep` will keep the modules' version in package.json not change by autod.
 
+## Maintains your dependencies in Makefile
+
+add a command in your Makefile
+
+```sh
+autod:
+    @./node_modules/.bin/autod -w
+    @npm install
+
+```
+
+then run `make autod`, it will find all the dependencies and devDependencies in your project,
+add / remove dependencies, and bump the versions.
+
+check out an example [here](https://github.com/cnpm/cnpmjs.org/blob/master/Makefile#L50)
+
 ## License
 
 (The MIT License)
