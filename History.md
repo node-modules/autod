@@ -1,4 +1,14 @@
 
+n.n.n / 2014-06-26
+==================
+
+  * update reg to support kissy/lib/xtemplate type
+  * update examples
+  * Merge branch 'master' of github.com:node-modules/autod
+  * update readme
+  * Merge pull request #9 from coderhaoxin/master
+  * fix typo
+
 0.2.1 / 2014-06-06
 ==================
 
