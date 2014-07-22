@@ -1,5 +1,10 @@
 
-n.n.n / 2014-06-26
+0.2.3 / 2014-07-22
+==================
+
+  * support scope
+
+0.2.2 / 2014-06-26
 ==================
 
   * update reg to support kissy/lib/xtemplate type
