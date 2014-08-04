@@ -112,7 +112,7 @@ function comparePackage(result) {
     } else {
       console.log(output(result));
       console.error('`package.json` parsed error: %s', err.message);
-      process.exist(1);
+      process.exit(1);
     }
   }
 
