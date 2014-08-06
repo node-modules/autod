@@ -1,4 +1,10 @@
 
+0.3.0 / 2014-08-06 
+==================
+
+  * Merge pull request #11 from node-modules/default-registry
+  * try to read default registry from publishConfig
+
 0.2.5 / 2014-08-04 
 ==================
 
