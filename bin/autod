@@ -22,8 +22,10 @@ var printable = require('printable');
 var color = require('colors');
 var minimatch = require("minimatch");
 
+var pkg = require('../package.json');
+
 var argv = program
-  .version(require('../package.json').version)
+  .version(pkg.version)
   .option('-p, --path [folder path]', 'the folder path to be parse', '.')
   .option('-t, --test <test folder path>', 'the test folder path to be parse', 'test')
   .option('-e, --exclude <exclude folder path>', 'exclude parse folder, split by `,`')
@@ -173,8 +175,15 @@ function comparePackage(result) {
   }
 }
 
+var registry = argv.registry;
+if (!registry) {
+  if (pkg.publishConfig && pkg.publishConfig.registry) {
+    registry = pkg.publishConfig.registry;
+  }
+}
+
 autod({
-  registry: argv.registry,
+  registry: registry,
   exclude: argv.exclude && argv.exclude.split(/\s*,\s*/),
   dep: argv.dep && argv.dep.split(/\s*,\s*/),
   root: argv.path,
