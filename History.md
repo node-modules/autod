@@ -1,11 +1,16 @@
 
-0.3.0 / 2014-08-06 
+0.3.1 / 2014-08-06
+==================
+
+  * fix publishConfig.registry
+
+0.3.0 / 2014-08-06
 ==================
 
   * Merge pull request #11 from node-modules/default-registry
   * try to read default registry from publishConfig
 
-0.2.5 / 2014-08-04 
+0.2.5 / 2014-08-04
 ==================
 
   * fix stupid typo
