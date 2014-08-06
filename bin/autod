@@ -179,8 +179,16 @@ var registry = argv.registry;
 // get registry from pacakge.json
 // default to Chinese Mirror
 if (!registry) {
-  registry = pkg.publishConfig && pkg.publishConfig.registry
-    ? pkg.publishConfig.registry
+  var modulePackage;
+  try {
+    modulePackage = fs.readFileSync('package.json', 'utf8');
+    modulePackage = JSON.parse(modulePackage);
+  } catch (err) {
+    modulePackage = {};
+  }
+
+  registry = modulePackage.publishConfig && modulePackage.publishConfig.registry
+    ? modulePackage.publishConfig.registry
     : 'http://registry.npm.taobao.org'
 }
 
