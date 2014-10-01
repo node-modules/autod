@@ -1,7 +1,19 @@
 
 # autod
 
-[![NPM](https://nodei.co/npm/autod.svg)](https://nodei.co/npm/autod/)
+[![NPM version][npm-image]][npm-url]
+[![David deps][david-image]][david-url]
+[![node version][node-image]][node-url]
+[![Gittip][gittip-image]][gittip-url]
+
+[npm-image]: https://img.shields.io/npm/v/autod.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/autod
+[david-image]: https://img.shields.io/david/node-modules/autod.svg?style=flat-square
+[david-url]: https://david-dm.org/node-modules/autod
+[node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
+[node-url]: http://nodejs.org/download/
+[gittip-image]: https://img.shields.io/gittip/dead-horse.svg?style=flat-square
+[gittip-url]: https://www.gittip.com/dead-horse/
 
 Auto generate dependencies and devDependencies by parse the project file.
 `autod` will parse all the js files in `path`, and get the latest dependencies version from [registry.npm.taobao.org](http://registry.npm.taobao.org) or other registries by `-r`.
