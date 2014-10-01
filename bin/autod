@@ -37,11 +37,41 @@ var argv = program
   .option('-d, --dep <dependently modules>', 'modules that not require in source file, but you need them as dependencies')
   .option('-D, --devdep <dev dependently modules>', 'modules that not require in source file, but you need them in as devDependencies')
   .option('-k, --keep <dependently modules>', 'modules that you want to keep version in package.json file')
+  .option('-s, --semver <dependencies@version>', 'auto update these modules within the specified semver')
   .parse(process.argv);
 
 if (argv.prefix && argv.prefix !== '~') {
   argv.prefix = '^';
 }
+
+autod({
+  registry: registry,
+  exclude: argv.exclude && argv.exclude.split(/\s*,\s*/),
+  dep: argv.dep && argv.dep.split(/\s*,\s*/),
+  devdep: argv.devdep && argv.devdep.split(/\s*,\s*/),
+  semver: processSemver(),
+  root: argv.path,
+  testRoot: argv.test
+}).parse(function (err, result) {
+  if (err) {
+    console.error('[ERROR]'.red, err.message);
+    err.errorMap && console.log('[ERROR]'.red + ' Error packages path map:\n',
+     util.inspect(err.errorMap, {depth: 3, colors: true}));
+    if (!argv.ignore) {
+      process.exit(1);
+    }
+  }
+  console.log('\n[DEPENDENCIES]\n'.green);
+  comparePackage(result);
+  if (argv.map) {
+    console.log('\n[DEPENDENCY MAP]\n'.green);
+    console.log(util.inspect(result.map, {depth: 3, colors: true}));
+  }
+}).on('warn', function (msg) {
+  console.warn('[warn] '.yellow, msg);
+  process.exit(0);
+});
+
 
 function outputDep(name, values) {
   var str = util.format('  "%s": {\n', name);
@@ -193,29 +223,13 @@ if (!registry) {
     : 'http://registry.npm.taobao.org';
 }
 
-autod({
-  registry: registry,
-  exclude: argv.exclude && argv.exclude.split(/\s*,\s*/),
-  dep: argv.dep && argv.dep.split(/\s*,\s*/),
-  devdep: argv.devdep && argv.devdep.split(/\s*,\s*/),
-  root: argv.path,
-  testRoot: argv.test
-}).parse(function (err, result) {
-  if (err) {
-    console.error('[ERROR]'.red, err.message);
-    err.errorMap && console.log('[ERROR]'.red + ' Error packages path map:\n',
-     util.inspect(err.errorMap, {depth: 3, colors: true}));
-    if (!argv.ignore) {
-      process.exit(1);
-    }
-  }
-  console.log('\n[DEPENDENCIES]\n'.green);
-  comparePackage(result);
-  if (argv.map) {
-    console.log('\n[DEPENDENCY MAP]\n'.green);
-    console.log(util.inspect(result.map, {depth: 3, colors: true}));
-  }
-}).on('warn', function (msg) {
-  console.warn('[warn] '.yellow, msg);
-  process.exit(0);
-});
+function processSemver() {
+  var semver = argv.semver || '';
+  var map = {};
+  semver.split(/\s*,\s*/).forEach(function (m) {
+    m = m.split('@');
+    if (m.length !== 2) return;
+    map[m[0]] = m[1];
+  });
+  return map;
+}
