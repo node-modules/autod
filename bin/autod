@@ -34,8 +34,9 @@ var argv = program
   .option('-w, --write', 'write dependencies into package.json')
   .option('-i, --ignore', 'ignore errors, display the dependencies or write the dependencies.')
   .option('-m, --map', 'display all the dependencies require by which file')
-  .option('-d, --dep <dependence modules>', 'modules that not require by file, but you really need them')
-  .option('-k, --keep <dependencies modules>', 'modules that you want to keep version in package.json file')
+  .option('-d, --dep <dependently modules>', 'modules that not require in source file, but you need them as dependencies')
+  .option('-D, --devdep <dev dependently modules>', 'modules that not require in source file, but you need them in as devDependencies')
+  .option('-k, --keep <dependently modules>', 'modules that you want to keep version in package.json file')
   .parse(process.argv);
 
 if (argv.prefix && argv.prefix !== '~') {
@@ -189,13 +190,14 @@ if (!registry) {
 
   registry = modulePackage.publishConfig && modulePackage.publishConfig.registry
     ? modulePackage.publishConfig.registry
-    : 'http://registry.npm.taobao.org'
+    : 'http://registry.npm.taobao.org';
 }
 
 autod({
   registry: registry,
   exclude: argv.exclude && argv.exclude.split(/\s*,\s*/),
   dep: argv.dep && argv.dep.split(/\s*,\s*/),
+  devdep: argv.devdep && argv.devdep.split(/\s*,\s*/),
   root: argv.path,
   testRoot: argv.test
 }).parse(function (err, result) {
