@@ -26,9 +26,9 @@ var pkg = require('../package.json');
 
 var argv = program
   .version(pkg.version)
-  .option('-p, --path [folder path]', 'the folder path to be parse', '.')
-  .option('-t, --test <test folder path>', 'the test folder path to be parse', 'test')
-  .option('-e, --exclude <exclude folder path>', 'exclude parse folder, split by `,`')
+  .option('-p, --path [root path]', 'the root path to be parse', '.')
+  .option('-t, --test <test/benchmark/example directory paths>', 'modules in these paths will be tread as devDependencies', 'test,benchmark,example,example.js')
+  .option('-e, --exclude <exclude directory path>', 'exclude parse directory, split by `,`')
   .option('-r, --registry <remote registry>', 'get latest version from which registry')
   .option('-f, --prefix [version prefix]', 'version prefix, can be `~` or `^`')
   .option('-w, --write', 'write dependencies into package.json')
@@ -51,7 +51,7 @@ autod({
   devdep: argv.devdep && argv.devdep.split(/\s*,\s*/),
   semver: processSemver(),
   root: argv.path,
-  testRoot: argv.test
+  testRoots: argv.test && argv.test.split(/\s*,\s*/)
 }).parse(function (err, result) {
   if (err) {
     console.error('[ERROR]'.red, err.message);
