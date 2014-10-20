@@ -1,4 +1,10 @@
 
+1.1.1 / 2014-10-20 
+==================
+
+  * Merge pull request #14 from node-modules/fix-publish-config-registry
+  * fix publishConfig.registry not work bug
+
 1.1.0 / 2014-10-18
 ==================
 
