@@ -44,6 +44,23 @@ if (argv.prefix && argv.prefix !== '~') {
   argv.prefix = '^';
 }
 
+var registry = argv.registry;
+// get registry from pacakge.json
+// default to Chinese Mirror
+if (!registry) {
+  var modulePackage;
+  try {
+    modulePackage = fs.readFileSync('package.json', 'utf8');
+    modulePackage = JSON.parse(modulePackage);
+  } catch (err) {
+    modulePackage = {};
+  }
+
+  registry = modulePackage.publishConfig && modulePackage.publishConfig.registry
+    ? modulePackage.publishConfig.registry
+    : 'http://registry.npm.taobao.org';
+}
+
 autod({
   registry: registry,
   exclude: argv.exclude && argv.exclude.split(/\s*,\s*/),
@@ -204,23 +221,6 @@ function comparePackage(result) {
     console.log('[INFO]'.green + ' Write dependencies into package.json.');
     fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
   }
-}
-
-var registry = argv.registry;
-// get registry from pacakge.json
-// default to Chinese Mirror
-if (!registry) {
-  var modulePackage;
-  try {
-    modulePackage = fs.readFileSync('package.json', 'utf8');
-    modulePackage = JSON.parse(modulePackage);
-  } catch (err) {
-    modulePackage = {};
-  }
-
-  registry = modulePackage.publishConfig && modulePackage.publishConfig.registry
-    ? modulePackage.publishConfig.registry
-    : 'http://registry.npm.taobao.org';
 }
 
 function processSemver() {
