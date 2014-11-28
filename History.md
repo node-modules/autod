@@ -1,10 +1,15 @@
 
-1.1.2 / 2014-11-20 
+1.1.3 / 2014-11-29
+==================
+
+  * better display for print dependency map
+
+1.1.2 / 2014-11-20
 ==================
 
   * fix typo error
 
-1.1.1 / 2014-10-20 
+1.1.1 / 2014-10-20
 ==================
 
   * Merge pull request #14 from node-modules/fix-publish-config-registry
