@@ -237,6 +237,6 @@ function processSemver() {
 function printDependencyMap(map) {
   Object.keys(map).sort().forEach(function (name) {
     console.log(('  ' + name).cyan);
-    console.log(('    ' + map[name].join('\n  ')).grey);
+    console.log(('    ' + map[name].join('\n    ')).grey);
   });
 }
