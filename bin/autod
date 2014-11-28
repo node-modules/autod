@@ -81,8 +81,8 @@ autod({
   console.log('\n[DEPENDENCIES]\n'.green);
   comparePackage(result);
   if (argv.map) {
-    console.log('\n[DEPENDENCY MAP]\n'.green);
-    console.log(util.inspect(result.map, {depth: 3, colors: true}));
+    console.log('\n[DEPENDENCY MAP]'.green);
+    printDependencyMap(result.map);
   }
 }).on('warn', function (msg) {
   console.warn('[warn] '.yellow, msg);
@@ -232,4 +232,11 @@ function processSemver() {
     map[m[0]] = m[1];
   });
   return map;
+}
+
+function printDependencyMap(map) {
+  Object.keys(map).sort().forEach(function (name) {
+    console.log(('  ' + name).cyan);
+    console.log(('    ' + map[name].join('\n  ')).grey);
+  });
 }
