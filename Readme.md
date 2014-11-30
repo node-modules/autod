@@ -80,8 +80,8 @@ add / remove dependencies, and bump the versions.
 
 check out some examples:
 
- - [cnpmjs.org](https://github.com/cnpm/cnpmjs.org/blob/master/Makefile#L50)
- - [koa-sess](https://github.com/koajs/koa-session/blob/master/Makefile#L41)
+ - [cnpmjs.org](https://github.com/cnpm/cnpmjs.org/blob/master/Makefile#L95)
+ - [koa-generic-session](https://github.com/koajs/generic-session/blob/master/Makefile#L40)
 
 ## License
 
