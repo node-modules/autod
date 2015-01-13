@@ -29,29 +29,32 @@ $ npm install -g autod
 ```bash
 $ bin/autod -h
 
-  Usage: autod [options]
+ Usage: autod [options]
 
   Options:
 
-    -h, --help                           output usage information
-    -p, --path [folder path]             the folder path to be parse
-    -t, --test <test folder path>        the test folder path to be parse
-    -e, --exclude <exclude folder path>  exclude parse folder, split by `,`
-    -r, --registry <remote registry>     get latest version from which registry
-    -f, --prefix [version prefix]        version prefix, can be `~` or `^`
-    -w, --write                          write dependencies into package.json
-    -i, --ignore                         ignore errors, display the dependencies or write the dependencies.
-    -m, --map                            display all the dependencies require by which file
-    -d, --dep <dependently modules>         modules that not require in source file, but you need them as dependencies
-    -D, --devdep <dev dependently modules>  modules that not require in source file, but you need them in as devDependencies
-    -k, --keep <dependently modules>        modules that you want to keep version in package.json file
-    -s, --semver <dependencies@version>     auto update these modules within the specified semver
+    -h, --help                                           output usage information
+    -V, --version                                        output the version number
+    -p, --path [root path]                               the root path to be parse
+    -t, --test <test/benchmark/example directory paths>  modules in these paths will be tread as devDependencies
+    -e, --exclude <exclude directory path>               exclude parse directory, split by `,`
+    -r, --registry <remote registry>                     get latest version from which registry
+    -f, --prefix [version prefix]                        version prefix, can be `~` or `^`
+    -F, --devprefix [dev dependencies version prefix]    develop dependencies version prefix, can be `~` or `^`
+    -w, --write                                          write dependencies into package.json
+    -i, --ignore                                         ignore errors, display the dependencies or write the dependencies.
+    -m, --map                                            display all the dependencies require by which file
+    -d, --dep <dependently modules>                      modules that not require in source file, but you need them as dependencies
+    -D, --devdep <dev dependently modules>               modules that not require in source file, but you need them in as devDependencies
+    -k, --keep <dependently modules>                     modules that you want to keep version in package.json file
+    -s, --semver <dependencies@version>                  auto update these modules within the specified semver
 ```
 
 * Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`.
 * All the modules in test folder (can be alter by `-t, --text`) will parsed as devDependencies.
 * If you set `-w, --write`, `autod` will write the dependencies into package.json file. `dependencies` will replace `dependencies` in package.json, and `devDependencies` will merge with `devDependencies` in package.json, then write into package file.
 * `-f, --prefix` will add prefix to each dependencies' version.
+* `-F, --devprefix` will add prefix to each dev dependencies' version.
 * `-i, --ignore` will display or wrtie the dependencies even some error happened.
 * `-d --dep` will add modules to dependencies even not require by any file.
 * `-D --devdep` will add modules to devDependencies even not require by any file.

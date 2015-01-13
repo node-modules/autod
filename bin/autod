@@ -31,6 +31,7 @@ var argv = program
   .option('-e, --exclude <exclude directory path>', 'exclude parse directory, split by `,`')
   .option('-r, --registry <remote registry>', 'get latest version from which registry')
   .option('-f, --prefix [version prefix]', 'version prefix, can be `~` or `^`')
+  .option('-F, --devprefix [dev dependencies version prefix]', 'develop dependencies version prefix, can be `~` or `^`')
   .option('-w, --write', 'write dependencies into package.json')
   .option('-i, --ignore', 'ignore errors, display the dependencies or write the dependencies.')
   .option('-m, --map', 'display all the dependencies require by which file')
@@ -40,8 +41,11 @@ var argv = program
   .option('-s, --semver <dependencies@version>', 'auto update these modules within the specified semver')
   .parse(process.argv);
 
-if (argv.prefix && argv.prefix !== '~') {
-  argv.prefix = '^';
+if (argv.prefix && argv.prefix !== '^') {
+  argv.prefix = '~';
+}
+if (argv.devprefix && argv.devprefix !== '^') {
+  argv.devprefix = '~';
 }
 
 var registry = argv.registry;
@@ -147,8 +151,11 @@ function comparePackage(result) {
     for (var key in result.dependencies) {
       result.dependencies[key] = argv.prefix + result.dependencies[key];
     }
+  }
+  var devprefix = argv.devprefix ? argv.devprefix : argv.prefix;
+  if (devprefix) {
     for (var key in result.devDependencies) {
-      result.devDependencies[key] = argv.prefix + result.devDependencies[key];
+      result.devDependencies[key] = devprefix + result.devDependencies[key];
     }
   }
 
