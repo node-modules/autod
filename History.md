@@ -1,4 +1,9 @@
 
+2.0.0 / 2015-01-15 
+==================
+
+  * feat: use crequire to parse the require tag, fixes #3
+
 1.2.0 / 2015-01-13 
 ==================
 
