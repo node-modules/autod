@@ -90,7 +90,7 @@ check out some examples:
 
 (The MIT License)
 
-Copyright (c) 2013~2014 dead_horse <dead_horse@qq.com>;
+Copyright (c) 2013~2015 dead_horse <dead_horse@qq.com>;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
