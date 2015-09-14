@@ -1,21 +1,26 @@
 
-2.1.0 / 2015-09-14 
+2.1.1 / 2015-09-14 
+==================
+
+  * rename
+
+2.1.0 / 2015-09-14
 ==================
 
   * support es6 import
   * deps: upgrade semver@2.3.0
 
-2.0.1 / 2015-02-16 
+2.0.1 / 2015-02-16
 ==================
 
   * fix: fix exclude in test folder
 
-2.0.0 / 2015-01-15 
+2.0.0 / 2015-01-15
 ==================
 
   * feat: use crequire to parse the require tag, fixes #3
 
-1.2.0 / 2015-01-13 
+1.2.0 / 2015-01-13
 ==================
 
   * feat: support --devprefix
