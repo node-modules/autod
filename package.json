@@ -13,11 +13,13 @@
   },
   "main": "index",
   "dependencies": {
+    "babel": "~5.8.23",
     "bagpipe": "~0.3.5",
     "colors": "~1.0.3",
     "commander": "~2.6.0",
     "crequire": "~1.5.3",
     "debug": "~2.1.1",
+    "esprima": "~2.5.0",
     "eventproxy": "~0.3.2",
     "minimatch": "~2.0.1",
     "printable": "~0.0.3",
