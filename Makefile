@@ -5,5 +5,5 @@ test:
 		--reporter spec
 
 autod:
-	@./bin/autod -w --prefix="~"
+	@./bin/autod.js -w --prefix="~"
 .PHONY: test

@@ -12,17 +12,17 @@
  * Module dependencies.
  */
 
-var program = require('commander');
-var autod = require('../');
-var util = require('util');
 var resolve = require('path').resolve;
-var pjoin = require('path').join;
-var fs = require('fs');
-var printable = require('printable');
-var color = require('colors');
-var minimatch = require("minimatch");
-
 var pkg = require('../package.json');
+var printable = require('printable');
+var minimatch = require("minimatch");
+var program = require('commander');
+var pjoin = require('path').join;
+var color = require('colors');
+var util = require('util');
+var autod = require('../');
+var fs = require('fs');
+
 
 var argv = program
   .version(pkg.version)

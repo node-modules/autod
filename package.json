@@ -8,27 +8,27 @@
     "type": "git",
     "url": "git://github.com/node-modules/autod.git"
   },
+  "files": [
+    "bin",
+    "index.js"
+  ],
   "bin": {
-    "autod": "bin/autod"
+    "autod": "bin/autod.js"
   },
   "main": "index",
   "dependencies": {
     "babel": "~5.8.23",
     "bagpipe": "~0.3.5",
-    "colors": "~1.0.3",
-    "commander": "~2.6.0",
-    "crequire": "~1.5.3",
-    "debug": "~2.1.1",
-    "esprima": "~2.5.0",
-    "eventproxy": "~0.3.2",
-    "minimatch": "~2.0.1",
+    "colors": "~1.1.2",
+    "commander": "~2.8.1",
+    "crequire": "~1.6.0",
+    "debug": "~2.2.0",
+    "minimatch": "~2.0.10",
     "printable": "~0.0.3",
-    "semver": "~4.3.0",
-    "urllib": "~2.2.2"
+    "semver": "~5.0.3",
+    "urllib": "~2.4.0"
   },
   "devDependencies": {
-    "mm": "0.2.0",
-    "mocha": "*",
-    "should": "3.1.3"
+
   }
 }
