@@ -86,6 +86,10 @@ check out some examples:
  - [cnpmjs.org](https://github.com/cnpm/cnpmjs.org/blob/master/Makefile#L95)
  - [koa-generic-session](https://github.com/koajs/generic-session/blob/master/Makefile#L40)
 
+## es6 modules support
+
+All files will compiled by [traceur](https://github.com/google/traceur-compiler) for es6 module support.
+
 ## License
 
 (The MIT License)
