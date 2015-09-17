@@ -17,7 +17,6 @@
   },
   "main": "index",
   "dependencies": {
-    "babel": "~5.8.23",
     "bagpipe": "~0.3.5",
     "colors": "~1.1.2",
     "commander": "~2.8.1",
@@ -26,6 +25,7 @@
     "minimatch": "~2.0.10",
     "printable": "~0.0.3",
     "semver": "~5.0.3",
+    "traceur": "~0.0.91",
     "urllib": "~2.4.0"
   },
   "devDependencies": {

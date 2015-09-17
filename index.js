@@ -13,11 +13,11 @@
 var EventEmitter = require('events').EventEmitter;
 var debug = require('debug')('autod');
 var crequire = require('crequire');
+var traceur = require('traceur');
 var bagpipe = require('bagpipe');
 var pkg = require('./package');
 var semver = require('semver');
 var urllib = require('urllib');
-var babel = require('babel');
 var path = require('path');
 var util = require('util');
 var fs = require('fs');
@@ -132,10 +132,13 @@ Autod.prototype.parseFile = function (filePath) {
   var file;
   try {
     file = fs.readFileSync(filePath, 'utf-8');
-    file = babel.transform(file, { ast: false }).code || '';
+    // traceur don't support hashbang(#!/usr/bin/env node)
+    if (file[0] === '#') {
+      file = file.replace(/^#.*/, '');
+    }
+    file = traceur.compile(file);
   } catch (err) {
     this.emit('warn', util.format('Read(or transfrom) file %s error', filePath));
-    return [];
   }
   var modules = [];
   var self = this;
