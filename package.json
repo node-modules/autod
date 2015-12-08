@@ -19,14 +19,14 @@
   "dependencies": {
     "bagpipe": "~0.3.5",
     "colors": "~1.1.2",
-    "commander": "~2.8.1",
-    "crequire": "~1.6.0",
+    "commander": "~2.9.0",
+    "crequire": "~1.7.0",
     "debug": "~2.2.0",
-    "minimatch": "~2.0.10",
+    "minimatch": "~3.0.0",
     "printable": "~0.0.3",
-    "semver": "~5.0.3",
-    "traceur": "~0.0.91",
-    "urllib": "~2.4.0"
+    "semver": "~5.1.0",
+    "traceur": "~0.0.93",
+    "urllib": "~2.5.0"
   },
   "devDependencies": {
 
