@@ -39,6 +39,7 @@ var argv = program
   .option('-D, --devdep <dev dependently modules>', 'modules that not require in source file, but you need them in as devDependencies')
   .option('-k, --keep <dependently modules>', 'modules that you want to keep version in package.json file')
   .option('-s, --semver <dependencies@version>', 'auto update these modules within the specified semver')
+  .option('-n, --notransform', 'disable transfrom es next, don\'t support es6 modules')
   .parse(process.argv);
 
 if (argv.prefix && argv.prefix !== '^') {
@@ -72,7 +73,8 @@ autod({
   devdep: argv.devdep && argv.devdep.split(/\s*,\s*/),
   semver: processSemver(),
   root: argv.path,
-  testRoots: argv.test && argv.test.split(/\s*,\s*/)
+  testRoots: argv.test && argv.test.split(/\s*,\s*/),
+  notransform: argv.notransform
 }).parse(function (err, result) {
   if (err) {
     console.error('[ERROR]'.red, err.message);

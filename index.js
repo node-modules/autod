@@ -46,6 +46,7 @@ var Autod = function (options) {
   this.devdep = options.devdep || [];
   this.dependencyMap = {};
   this.semver = options.semver || {};
+  this.notransform = options.notransform;
 };
 
 util.inherits(Autod, EventEmitter);
@@ -132,11 +133,13 @@ Autod.prototype.parseFile = function (filePath) {
   var file;
   try {
     file = fs.readFileSync(filePath, 'utf-8');
-    // traceur don't support hashbang(#!/usr/bin/env node)
-    if (file[0] === '#') {
-      file = file.replace(/^#.*/, '');
+    if (!this.notransform) {
+      // traceur don't support hashbang(#!/usr/bin/env node)
+      if (file[0] === '#') {
+        file = file.replace(/^#.*/, '');
+      }
+      file = traceur.compile(file);
     }
-    file = traceur.compile(file);
   } catch (err) {
     this.emit('warn', util.format('Read(or transfrom) file %s error', filePath));
   }

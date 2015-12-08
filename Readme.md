@@ -59,7 +59,8 @@ $ bin/autod -h
 * `-d --dep` will add modules to dependencies even not require by any file.
 * `-D --devdep` will add modules to devDependencies even not require by any file.
 * `-k --keep` will keep the modules' version in package.json not change by autod.
-* `-s, --semver` will update these modules within the specified semver
+* `-s, --semver` will update these modules within the specified semver.
+* `-n, --notransform` disable transfrom es next, don't support es6 modules.
 
 a simple example of autod:
 
