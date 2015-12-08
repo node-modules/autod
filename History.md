@@ -1,4 +1,10 @@
 
+2.2.0 / 2015-12-08
+==================
+
+  * desp: update dependencies
+  * feat: support diable transfrom
+
 2.1.3 / 2015-09-17
 ==================
 
