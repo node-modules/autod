@@ -40,6 +40,7 @@ var argv = program
   .option('-k, --keep <dependently modules>', 'modules that you want to keep version in package.json file')
   .option('-s, --semver <dependencies@version>', 'auto update these modules within the specified semver')
   .option('-n, --notransform', 'disable transfrom es next, don\'t support es6 modules')
+  .option('-P, --plugin <name>', 'plugin module name')
   .parse(process.argv);
 
 if (argv.prefix && argv.prefix !== '^') {
@@ -74,7 +75,8 @@ autod({
   semver: processSemver(),
   root: argv.path,
   testRoots: argv.test && argv.test.split(/\s*,\s*/),
-  notransform: argv.notransform
+  notransform: argv.notransform,
+  plugin: argv.plugin
 }).parse(function (err, result) {
   if (err) {
     console.error('[ERROR]'.red, err.message);

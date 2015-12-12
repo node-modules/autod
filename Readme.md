@@ -91,6 +91,27 @@ check out some examples:
 
 All files will compiled by [traceur](https://github.com/google/traceur-compiler) for es6 module support.
 
+## Plugin support
+
+You can write a plugin for autod to decide how to parse dependencies.
+
+- Write a plugin, and publish it to NPM.
+
+```js
+module.exports = function (filepath, content) {
+  // find the dependencies
+  return []; // return dependencies
+};
+```
+
+- Use plugin:
+
+install plugin from NPM, then use it with `autod`:
+
+```
+autod -P pluginName
+```
+
 ## License
 
 (The MIT License)

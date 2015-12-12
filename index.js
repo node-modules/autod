@@ -47,6 +47,14 @@ var Autod = function (options) {
   this.dependencyMap = {};
   this.semver = options.semver || {};
   this.notransform = options.notransform;
+  if (options.plugin) {
+    try {
+      var pluginPath = path.join(process.cwd(), 'node_modules', options.plugin);
+      this.plugin = require(pluginPath);
+    } catch (err) {
+      throw new Error('plugin ' + options.plugin + ' not exist!');
+    }
+  }
 };
 
 util.inherits(Autod, EventEmitter);
@@ -160,6 +168,16 @@ Autod.prototype.parseFile = function (filePath) {
     self.dependencyMap[name] = self.dependencyMap[name] || [];
     self.dependencyMap[name].push(filePath);
   });
+
+  // support plugin parse file
+  if (this.plugin) {
+    var pluginModules = this.plugin(filePath, file) || [];
+    pluginModules.forEach(function (name) {
+      modules.push(name);
+      self.dependencyMap[name] = self.dependencyMap[name] || [];
+      self.dependencyMap[name].push(filePath);
+    })
+  }
 
   debug('file %s get modules %j', filePath, modules);
   return modules;
