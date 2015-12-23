@@ -59,7 +59,7 @@ for (var key in argv) {
   }
 }
 
-['exclude', 'dep', 'devdep', 'testRoots'].forEach(function (key) {
+['exclude', 'dep', 'devdep', 'testRoots', 'keep'].forEach(function (key) {
   options[key] = split(options[key]);
 });
 
@@ -202,7 +202,7 @@ function comparePackage(result) {
   if (pkgInfo.dependencies) {
     // keep these modules version, won't change by autod
     if (options.keep) {
-      options.keep.split(',').forEach(function (key) {
+      options.keep.forEach(function (key) {
         for (var pkgKey in pkgInfo.dependencies) {
           if (minimatch(pkgKey, key)) {
             result.dependencies[pkgKey] = pkgInfo.dependencies[pkgKey];
