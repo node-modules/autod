@@ -112,6 +112,25 @@ install plugin from NPM, then use it with `autod`:
 autod -P pluginName
 ```
 
+## Config support
+
+You can put all the options in `${cwd}/.autod.conf.js`, when you run `autod`, it will load this file as input options. It can be both a `js` file or a `json` file.
+
+```js
+module.exports = {
+  write: true,
+  prefix: '~',
+  devprefix: '^',
+  dep: [
+    'bluebird'
+  ],
+  semver: [
+    'koa-router@4',
+    'koa-compose@2'
+  ],
+};
+```
+
 ## License
 
 (The MIT License)
