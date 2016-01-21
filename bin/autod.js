@@ -253,10 +253,17 @@ function processSemver(semver) {
     semver = semver.split(/\s*,\s*/);
   }
   var map = {};
+
   semver.forEach(function (m) {
+    var prefix = '';
+    if (m.indexOf('@') === 0) {
+      prefix = '@';
+      m = m.slice(1);
+    }
+
     m = m.split('@');
     if (m.length !== 2) return;
-    map[m[0]] = m[1];
+    map[prefix + m[0]] = m[1];
   });
   return map;
 }
