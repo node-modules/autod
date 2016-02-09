@@ -85,9 +85,13 @@ if (!options.registry) {
     modulePackage = {};
   }
 
-  options.registry = modulePackage.publishConfig && modulePackage.publishConfig.registry
-    ? modulePackage.publishConfig.registry
-    : 'http://registry.npm.taobao.org';
+  options.registry = 'https://registry.npmjs.org';
+  // get from npm env
+  if (process.env.npm_config_registry) options.registry = process.env.npm_config_registry;
+  // get from package.json
+  if (modulePackage.publishConfig && modulePackage.publishConfig.registry) {
+    options.registry = modulePackage.publishConfig.registry;
+  }
 }
 
 autod(options).parse(function (err, result) {
