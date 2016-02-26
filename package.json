@@ -25,8 +25,8 @@
     "minimatch": "~3.0.0",
     "printable": "~0.0.3",
     "semver": "~5.1.0",
-    "traceur": "~0.0.93",
-    "urllib": "~2.5.0"
+    "traceur": "~0.0.102",
+    "urllib": "~2.7.2"
   },
   "devDependencies": {
 
