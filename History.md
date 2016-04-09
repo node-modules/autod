@@ -1,4 +1,11 @@
 
+2.5.0 / 2016-04-09
+==================
+
+  * feat: support jsx
+  * fix: use https://registry.npmjs.org
+  * feat: read env.npm_config_registry
+
 2.4.2 / 2016-01-21
 ==================
 
