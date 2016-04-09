@@ -17,6 +17,9 @@
   },
   "main": "index",
   "dependencies": {
+    "babel-core": "~6.7.6",
+    "babel-plugin-transform-es2015-modules-commonjs": "~6.7.4",
+    "babel-preset-react": "~6.5.0",
     "bagpipe": "~0.3.5",
     "colors": "~1.1.2",
     "commander": "~2.9.0",
@@ -25,8 +28,7 @@
     "minimatch": "~3.0.0",
     "printable": "~0.0.3",
     "semver": "~5.1.0",
-    "traceur": "~0.0.102",
-    "urllib": "^2.8.0"
+    "urllib": "~2.8.0"
   },
   "devDependencies": {
 

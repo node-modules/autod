@@ -13,7 +13,7 @@
 var EventEmitter = require('events').EventEmitter;
 var debug = require('debug')('autod');
 var crequire = require('crequire');
-var traceur = require('traceur');
+var babel = require('babel-core');
 var bagpipe = require('bagpipe');
 var pkg = require('./package');
 var semver = require('semver');
@@ -112,7 +112,7 @@ Autod.prototype.findJsFile = function (root, exclude) {
         return dirs.push(filePath);
       }
       var extname = path.extname(filePath);
-      if (!extname || extname === '.js') {
+      if (!extname || extname === '.js' || extname === '.jsx') {
         jsFiles.push(filePath);
       }
     });
@@ -142,11 +142,11 @@ Autod.prototype.parseFile = function (filePath) {
   try {
     file = fs.readFileSync(filePath, 'utf-8');
     if (!this.notransform) {
-      // traceur don't support hashbang(#!/usr/bin/env node)
-      if (file[0] === '#') {
-        file = file.replace(/^#.*/, '');
-      }
-      file = traceur.compile(file);
+      var res = babel.transform(file, {
+        presets: ['react'],
+        plugins: ['transform-es2015-modules-commonjs'],
+      });
+      file = res.code;
     }
   } catch (err) {
     this.emit('warn', util.format('Read(or transfrom) file %s error', filePath));

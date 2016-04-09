@@ -89,7 +89,7 @@ check out some examples:
 
 ## es6 modules support
 
-All files will compiled by [traceur](https://github.com/google/traceur-compiler) for es6 module support.
+All files will compiled by `babel` with `babel-preset-react` and `babel-plugin-transform-es2015`.
 
 ## Plugin support
 

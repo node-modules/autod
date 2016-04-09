@@ -5,5 +5,5 @@ test:
 		--reporter spec
 
 autod:
-	@./bin/autod.js -w --prefix="~"
+	@autod -w --prefix="~" -d babel-preset-react,babel-plugin-transform-es2015-modules-commonjs
 .PHONY: test
