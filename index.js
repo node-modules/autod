@@ -41,7 +41,7 @@ var Autod = function (options) {
   this.exclude.push('node_modules');
   this.exclude.push('.git');
   this.testRoots = options.testRoots || ['test', 'benchmark', 'example', 'example.js'];
-  this.registry = options.registry || 'https://registry.npmjs.org';
+  this.registry = (options.registry || 'https://registry.npmjs.org').replace(/\/$/, '');
   this.dep = options.dep || [];
   this.devdep = options.devdep || [];
   this.dependencyMap = {};
