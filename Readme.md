@@ -89,7 +89,7 @@ check out some examples:
 
 ## es6 modules support
 
-All files will compiled by `babel` with `babel-preset-react` and `babel-plugin-transform-es2015`.
+All files will compiled by `babel` with `babel-preset-react`, `babel-preset-es2015`, `babel-preset-stage-0`.
 
 ## Plugin support
 

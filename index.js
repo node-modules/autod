@@ -143,8 +143,7 @@ Autod.prototype.parseFile = function (filePath) {
     file = fs.readFileSync(filePath, 'utf-8');
     if (!this.notransform) {
       var res = babel.transform(file, {
-        presets: [require('babel-preset-react')],
-        plugins: [require('babel-plugin-transform-es2015-modules-commonjs')],
+        presets: [require('babel-preset-react'), require('babel-preset-es2015'), require('babel-preset-stage-0')],
       });
       file = res.code;
     }
