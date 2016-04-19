@@ -1,4 +1,10 @@
 
+2.5.2 / 2016-04-19 
+==================
+
+  * fix: support all es2015 and stage0
+  * fix: remove registry url slash (#21)
+
 2.5.1 / 2016-04-09
 ==================
 
