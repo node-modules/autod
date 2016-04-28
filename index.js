@@ -28,11 +28,13 @@ var Autod = function (options) {
   if (!(this instanceof Autod)) {
     return new Autod(options);
   }
-  EventEmitter.call(this);
-  this.root = options.root;
-  if (!this.root) {
+  options = options || {};
+  if (!options.root) {
     throw new Error('need options.root!');
   }
+  this.root = path.resolve(options.root);
+
+  EventEmitter.call(this);
 
   this.exclude = options.exclude || [];
   if (!Array.isArray(this.exclude)) {
@@ -40,7 +42,11 @@ var Autod = function (options) {
   }
   this.exclude.push('node_modules');
   this.exclude.push('.git');
+  this.exclude = this.resolveWithRoot(this.exclude);
   this.testRoots = options.testRoots || ['test', 'benchmark', 'example', 'example.js'];
+  this.testRoots = this.resolveWithRoot(this.testRoots);
+  this.testRoots = this.removeExclude(this.testRoots);
+
   this.registry = (options.registry || 'https://registry.npmjs.org').replace(/\/$/, '');
   this.dep = options.dep || [];
   this.devdep = options.devdep || [];
@@ -63,7 +69,6 @@ util.inherits(Autod, EventEmitter);
  * @api private
  */
 Autod.prototype.findJsFile = function (root, exclude) {
-  root = path.resolve(root);
   try {
       if (fs.statSync(root).isFile()) {
       return [root];
@@ -79,7 +84,7 @@ Autod.prototype.findJsFile = function (root, exclude) {
   }
   var excludeMap = {};
   exclude.forEach(function (e) {
-    excludeMap[path.resolve(e)] = 1;
+    excludeMap[e] = 1;
   });
 
   function parseDir(dir) {
@@ -309,6 +314,21 @@ function union(arrOne, arrTwo) {
   });
   return Object.keys(map);
 }
+
+/**
+ * @api private
+ */
+Autod.prototype.resolveWithRoot = function(dirs) {
+  return dirs.map(function (dir) {
+    return path.resolve(this.root, dir);
+  }, this);
+};
+
+Autod.prototype.removeExclude = function(dirs) {
+  return dirs.filter(function (dir) {
+    return this.exclude.indexOf(dir) === -1;
+  }, this);
+};
 
 /**
  * @api public
