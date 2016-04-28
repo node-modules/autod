@@ -40,8 +40,8 @@ var Autod = function (options) {
   if (!Array.isArray(this.exclude)) {
     this.exclude = [this.exclude];
   }
-  this.exclude.push('node_modules');
-  this.exclude.push('.git');
+
+  this.exclude = this.exclude.concat(['node_modules', '.git', 'cov', 'coverage']);
   this.exclude = this.resolveWithRoot(this.exclude);
   this.testRoots = options.testRoots || ['test', 'benchmark', 'example', 'example.js'];
   this.testRoots = this.resolveWithRoot(this.testRoots);
