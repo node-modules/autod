@@ -1,4 +1,10 @@
 
+2.6.0 / 2016-04-28
+==================
+
+  * feat: add cov and coverage to default exclude dir
+  * fix: exclude test roots
+
 2.5.2 / 2016-04-19 
 ==================
 
