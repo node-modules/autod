@@ -28,7 +28,7 @@ var fs = require('fs');
 var argv = program
   .version(pkg.version)
   .option('-p, --path [root path]', 'the root path to be parse', '.')
-  .option('-t, --test <test/benchmark/example directory paths>', 'modules in these paths will be tread as devDependencies', 'test,benchmark,example,example.js')
+  .option('-t, --test <test/benchmark/example directory paths>', 'modules in these paths will be tread as devDependencies')
   .option('-e, --exclude <exclude directory path>', 'exclude parse directory, split by `,`')
   .option('-r, --registry <remote registry>', 'get latest version from which registry')
   .option('-f, --prefix [version prefix]', 'version prefix, can be `~` or `^`')
@@ -45,11 +45,15 @@ var argv = program
   .parse(process.argv);
 
 var options = {};
+var confPath;
 try {
-  var confPath = require.resolve(path.resolve('.autod.conf'));
-  console.log('get autod config from %s', confPath);
+  confPath = require.resolve(path.resolve('.autod.conf'));
   options = require(confPath);
 } catch (err) {
+  if (err.code !== 'MODULE_NOT_FOUND') {
+    console.error('load config %s error:', confPath);
+    console.error(err.stack);
+  }
   // ignore
 }
 
@@ -59,7 +63,7 @@ for (var key in argv) {
   }
 }
 
-['exclude', 'dep', 'devdep', 'testRoots', 'keep'].forEach(function (key) {
+['exclude', 'dep', 'devdep', 'test', 'keep'].forEach(function (key) {
   options[key] = split(options[key]);
 });
 

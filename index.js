@@ -43,10 +43,10 @@ var Autod = function (options) {
 
   this.exclude = this.exclude.concat(['node_modules', '.git', 'cov', 'coverage']);
   this.exclude = this.resolveWithRoot(this.exclude);
-  this.testRoots = options.testRoots || ['test', 'benchmark', 'example', 'example.js'];
+  this.testRoots = options.test || [];
+  this.testRoots = this.testRoots.concat(['test', 'benchmark', 'example', 'example.js']);
   this.testRoots = this.resolveWithRoot(this.testRoots);
   this.testRoots = this.removeExclude(this.testRoots);
-
   this.registry = (options.registry || 'https://registry.npmjs.org').replace(/\/$/, '');
   this.dep = options.dep || [];
   this.devdep = options.devdep || [];
