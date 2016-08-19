@@ -1,6 +1,6 @@
 {
   "name": "autod",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "auto generate dependencies",
   "keywords": [],
   "author": "dead_horse <dead_horse@qq.com>",
