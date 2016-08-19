@@ -207,23 +207,37 @@ function comparePackage(result) {
     process.exit(0);
   }
 
-  if (pkgInfo.dependencies) {
+  if (options.keep) {
     // keep these modules version, won't change by autod
-    if (options.keep) {
-      options.keep.forEach(function (key) {
-        for (var pkgKey in pkgInfo.dependencies) {
-          if (minimatch(pkgKey, key)) {
-            result.dependencies[pkgKey] = pkgInfo.dependencies[pkgKey];
-          }
+    options.keep.forEach(function (key) {
+      for (var pkgKey in result.dependencies) {
+        if (minimatch(pkgKey, key)) {
+          delete result.dependencies[pkgKey];
         }
+      }
+      for (var pkgKey in result.devDependencies) {
+        if (minimatch(pkgKey, key)) {
+          delete result.devDependencies[pkgKey];
+        }
+      }
 
-        for (var pkgKey in pkgInfo.devDependencies) {
-          if (minimatch(pkgKey, key)) {
-            result.devDependencies[key] = pkgInfo.devDependencies[key];
-          }
+      var dependencies = pkgInfo.dependencies;
+      var devDependencies = pkgInfo.devDependencies;
+      for (var pkgKey in dependencies) {
+        if (minimatch(pkgKey, key)) {
+          result.dependencies[pkgKey] = dependencies[pkgKey];
         }
-      });
-    }
+      }
+
+      for (var pkgKey in devDependencies) {
+        if (minimatch(pkgKey, key)) {
+          result.devDependencies[key] = devDependencies[key];
+        }
+      }
+    });
+  }
+
+  if (pkgInfo.dependencies) {
     pkgStr = pkgStr.replace(/( |\t)*"dependencies"\s*:\s*{(.|\n)*?}/,
       outputDep('dependencies', result.dependencies));
   } else {
