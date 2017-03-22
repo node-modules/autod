@@ -158,7 +158,7 @@ Autod.prototype.parseFile = function (filePath) {
   var modules = [];
   var self = this;
 
-  crequire(file).forEach(function (r) {
+  crequire(file, true).forEach(function (r) {
     var parsed = MODULE_REG.exec(r.path);
     if (!parsed) {
       return;
