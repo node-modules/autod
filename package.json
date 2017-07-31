@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "coffee": "^4.1.0",
-    "egg-bin": "^4.0.5",
+    "egg-bin": "1",
     "egg-ci": "^1.8.0"
   },
   "ci": {
