@@ -1,16 +1,6 @@
 #!/usr/bin/env node
 
-/*!
- * autod - bin/autod.js
- * Copyright(c) 2013
- * Author: dead_horse <dead_horse@qq.com> (http://deadhorse.me)
- */
-
 'use strict';
-
-/**
- * Module dependencies.
- */
 
 var resolve = require('path').resolve;
 var pkg = require('../package.json');
@@ -23,7 +13,6 @@ var util = require('util');
 var autod = require('../');
 var path = require('path');
 var fs = require('fs');
-
 
 var argv = program
   .version(pkg.version)
@@ -42,6 +31,7 @@ var argv = program
   .option('-s, --semver <dependencies@version>', 'auto update these modules within the specified semver')
   .option('-n, --notransform', 'disable transfrom es next, don\'t support es6 modules')
   .option('-P, --plugin <name>', 'plugin module name')
+  .option('--check', 'check missing dependencies and devDependencies')
   .parse(process.argv);
 
 var options = {};
@@ -263,9 +253,41 @@ function comparePackage(result) {
   console.log(output(result));
   printUpdates('Dependencies', result.dependencies, pkgInfo.dependencies, true);
   printUpdates('DevDependencies', result.devDependencies, pkgInfo.devDependencies);
+
   if (options.write) {
     console.log('[INFO]'.green + ' Write dependencies into package.json.');
     fs.writeFileSync(pkgPath, pkgStr, 'utf-8');
+  }
+
+  if (options.check) {
+    var missingDependencies = [];
+    var missingDevDependencies = [];
+    var deps = result.dependencies || {};
+    var old = pkgInfo.dependencies || {};
+    for (var key in deps) {
+      if (!old[key]) {
+        missingDependencies.push(key);
+      }
+    }
+    var devDeps = result.devDependencies || {};
+    var devOld = pkgInfo.devDependencies || {};
+    for (var key in devDeps) {
+      if (!devOld[key]) {
+        missingDevDependencies.push(key);
+      }
+    }
+
+    if (missingDependencies.length > 0) {
+      console.error('[ERROR]'.red + ' Missing dependencies: ' +
+        JSON.stringify(missingDependencies) + '\n');
+    }
+    if (missingDevDependencies.length > 0) {
+      console.error('[ERROR]'.red + ' Missing devDependencies: ' +
+        JSON.stringify(missingDevDependencies) + '\n');
+    }
+    if (missingDependencies.length > 0 || missingDevDependencies.length > 0) {
+      process.exit(1);
+    }
   }
 }
 
