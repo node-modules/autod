@@ -1,14 +1,4 @@
-/*!
- * autod - lib/autod.js
- * Copyright(c) 2013
- * Author: dead_horse <dead_horse@qq.com> (http://deadhorse.me)
- */
-
 'use strict';
-
-/**
- * Module dependencies.
- */
 
 var EventEmitter = require('events').EventEmitter;
 var debug = require('debug')('autod');
