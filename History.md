@@ -1,4 +1,10 @@
 
+2.9.0 / 2017-07-31
+==================
+
+**features**
+  * [[`c7c309d`](http://github.com/node-modules/autod/commit/c7c309da0729cb81ef77af4c429d7f7877f24952)] - feat: support autod --check (#28) (fengmk2 <<fengmk2@gmail.com>>)
+
 2.8.0 / 2017-03-22
 ==================
 
