@@ -1,4 +1,13 @@
 
+2.10.0 / 2017-10-12
+==================
+
+**features**
+  * [[`e142b00`](http://github.com/node-modules/autod/commit/e142b00931a36b3c3a5c8a30b37dfa2f31a01725)] - feat: check don't output dependencies info (dead-horse <<dead_horse@qq.com>>)
+
+**fixes**
+  * [[`8f769c3`](http://github.com/node-modules/autod/commit/8f769c37526f5ca72c5f52262ffab9367519dac1)] - fix: use preset-env (dead-horse <<dead_horse@qq.com>>)
+
 2.9.0 / 2017-07-31
 ==================
 
