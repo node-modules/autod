@@ -68,6 +68,9 @@ if (options.devprefix && options.devprefix !== '^') {
 
 options.root = options.path = options.path || '.';
 
+// don't write when check
+if (options.check) options.write = false;
+
 // get registry from pacakge.json
 // default to Chinese Mirror
 if (!options.registry) {
