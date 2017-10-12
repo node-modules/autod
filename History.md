@@ -1,4 +1,10 @@
 
+2.10.1 / 2017-10-12
+==================
+
+**fixes**
+  * [[`16e401b`](http://github.com/node-modules/autod/commit/16e401b2e2ccafc9471cab3cfcc525d98d42fdc8)] - fix: dont write when check (dead-horse <<dead_horse@qq.com>>)
+
 2.10.0 / 2017-10-12
 ==================
 
