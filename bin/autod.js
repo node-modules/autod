@@ -97,10 +97,10 @@ autod(options).parse(function (err, result) {
       process.exit(1);
     }
   }
-  console.log('\n[DEPENDENCIES]\n'.green);
+  log('\n[DEPENDENCIES]\n'.green);
   comparePackage(result);
   if (options.map) {
-    console.log('\n[DEPENDENCY MAP]'.green);
+    log('\n[DEPENDENCY MAP]'.green);
     printDependencyMap(result.map);
   }
 }).on('warn', function (msg) {
@@ -147,11 +147,11 @@ function printUpdates(title, latest, old, remove) {
     }
   }
   if (arr.length > 1) {
-    console.log((title + ' updates').yellow + '\n');
-    console.log(printable.print(arr));
-    console.log();
+    log((title + ' updates').yellow + '\n');
+    log(printable.print(arr));
+    log();
   } else {
-    console.log(('nothing to update in ' + title).green + '\n');
+    log(('nothing to update in ' + title).green + '\n');
   }
 }
 
@@ -182,14 +182,14 @@ function comparePackage(result) {
       pkgInfo = {};
       pkgExist = false;
     } else {
-      console.log(output(result));
+      log(output(result));
       console.error('`package.json` parsed error: %s', err.message);
       process.exit(1);
     }
   }
 
   if (!pkgExist) {
-    console.log(output(result));
+    log(output(result));
     if (options.write) {
       console.log('[WARN]'.yellow + ' `package.json` not exist, auto generate and write dependencies.');
       fs.writeFileSync(pkgPath, '{\n' + output(result) + '\n}\n', 'utf-8');
@@ -250,7 +250,7 @@ function comparePackage(result) {
       return ',' + before + outputDep('devDependencies', result.devDependencies) + '\n' + after;
     });
   }
-  console.log(output(result));
+  log(output(result));
   printUpdates('Dependencies', result.dependencies, pkgInfo.dependencies, true);
   printUpdates('DevDependencies', result.devDependencies, pkgInfo.devDependencies);
 
@@ -324,4 +324,9 @@ function split(str) {
     return str.split(/\s*,\s*/);
   }
   return str;
+}
+
+function log() {
+  if (options.check) return;
+  console.log.apply(console, arguments);
 }
