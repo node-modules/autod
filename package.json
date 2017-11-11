@@ -18,31 +18,30 @@
     "autod": "bin/autod.js"
   },
   "scripts": {
-    "autod": "bin/autod.js -w --prefix='^'",
+    "autod": "bin/autod.js -w --prefix='^' --exclude=test/fixtures",
     "lint": "eslint lib bin test/*.test.js",
     "test": "egg-bin test",
     "ci": "npm run lint && egg-bin cov"
   },
   "dependencies": {
-    "babel-core": "^6.25.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "bagpipe": "^0.3.5",
+    "co": "^4.6.0",
     "colors": "^1.1.2",
     "commander": "^2.11.0",
     "crequire": "^1.8.1",
-    "debug": "^2.6.8",
+    "debug": "^3.1.0",
     "fs-readdir-recursive": "^1.1.0",
     "glob": "^7.1.2",
     "minimatch": "^3.0.4",
     "printable": "^0.0.3",
-    "sdk-base": "^3.3.0",
-    "semver": "^5.4.1",
-    "urllib": "^2.24.0"
+    "urllib": "^2.25.1"
   },
   "devDependencies": {
     "coffee": "^4.1.0",
+    "egg": "^1.11.0",
     "egg-bin": "1",
     "egg-ci": "^1.8.0",
     "eslint": "^4.11.0",

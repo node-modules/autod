@@ -171,7 +171,7 @@ class Autod extends EventEmitter {
     try {
       file = fs.readFileSync(filePath, 'utf-8');
       if (!this.options.notransform) {
-        const res = require('babel=core').transform(file, {
+        const res = require('babel-core').transform(file, {
           presets: [ require('babel-preset-react'), require('babel-preset-env'), require('babel-preset-stage-0') ],
         });
         file = res.code;
