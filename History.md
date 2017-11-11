@@ -1,4 +1,14 @@
 
+3.0.0 / 2017-11-11
+==================
+
+**fixes**
+  * [[`eca5d8f`](http://github.com/node-modules/autod/commit/eca5d8fc70d8d704b36446c0cf29ecc28b2239fe)] - fix: don't compare if no import (dead-horse <<dead_horse@qq.com>>)
+
+**others**
+  * [[`b752ed2`](http://github.com/node-modules/autod/commit/b752ed27552356b719d638d32e0ef24739d990f9)] - deps: update dependencies (dead-horse <<dead_horse@qq.com>>)
+  * [[`960f13a`](http://github.com/node-modules/autod/commit/960f13a5625cadc92ba5f557f51c50846418f360)] - refactor: rewrite core logic, speed up! (Yiyu He <<dead_horse@qq.com>>)
+
 2.10.1 / 2017-10-12
 ==================
 
