@@ -19,8 +19,9 @@
   },
   "scripts": {
     "autod": "bin/autod.js -w --prefix='^'",
+    "lint": "eslint lib bin test/*.test.js",
     "test": "egg-bin test",
-    "ci": "egg-bin cov"
+    "ci": "npm run lint && egg-bin cov"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
@@ -32,15 +33,20 @@
     "commander": "^2.11.0",
     "crequire": "^1.8.1",
     "debug": "^2.6.8",
+    "fs-readdir-recursive": "^1.1.0",
+    "glob": "^7.1.2",
     "minimatch": "^3.0.4",
     "printable": "^0.0.3",
+    "sdk-base": "^3.3.0",
     "semver": "^5.4.1",
     "urllib": "^2.24.0"
   },
   "devDependencies": {
     "coffee": "^4.1.0",
     "egg-bin": "1",
-    "egg-ci": "^1.8.0"
+    "egg-ci": "^1.8.0",
+    "eslint": "^4.11.0",
+    "eslint-config-egg": "^5.1.1"
   },
   "ci": {
     "version": "4, 6, 8"

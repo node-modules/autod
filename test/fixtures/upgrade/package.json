@@ -1,0 +1,6 @@
+{
+  "name": "need-upgrade-deps-demo",
+  "dependencies": {
+    "debug": "1"
+  }
+}
