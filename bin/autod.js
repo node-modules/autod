@@ -94,9 +94,13 @@ if (!options.registry) {
 const autod = new Autod(options);
 if (options.check) {
   const allDeps = autod.findDependencies();
-  let result = { dependencies: {}, devDependencies: {} };
-  allDeps.dependencies.forEach(dep => result.dependencies[dep] = true);
-  allDeps.devDependencies.forEach(dep => result.devDependencies[dep] = true);
+  const result = { dependencies: {}, devDependencies: {} };
+  allDeps.dependencies.forEach(dep => {
+    result.dependencies[dep] = true;
+  });
+  allDeps.devDependencies.forEach(dep => {
+    result.devDependencies[dep] = true;
+  });
   comparePackage(result);
 } else {
   autod.findVersions().then(result => {
