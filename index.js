@@ -170,7 +170,8 @@ class Autod extends EventEmitter {
     let file;
     try {
       file = fs.readFileSync(filePath, 'utf-8');
-      if (!this.options.notransform) {
+
+      if (!this.options.notransform && file.includes('import')) {
         const res = require('babel-core').transform(file, {
           presets: [ require('babel-preset-react'), require('babel-preset-env'), require('babel-preset-stage-0') ],
         });
