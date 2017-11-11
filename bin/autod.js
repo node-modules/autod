@@ -6,11 +6,11 @@ const resolve = require('path').resolve;
 const pkg = require('../package.json');
 const printable = require('printable');
 const minimatch = require('minimatch');
-const Autod = require('../lib/autod');
 const program = require('commander');
 const pjoin = require('path').join;
 const util = require('util');
 const path = require('path');
+const Autod = require('..');
 const fs = require('fs');
 require('colors');
 
