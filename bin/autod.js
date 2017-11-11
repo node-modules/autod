@@ -2,19 +2,19 @@
 
 'use strict';
 
-var resolve = require('path').resolve;
-var pkg = require('../package.json');
-var printable = require('printable');
-var minimatch = require("minimatch");
-var program = require('commander');
-var pjoin = require('path').join;
-var color = require('colors');
-var util = require('util');
-var autod = require('../');
-var path = require('path');
-var fs = require('fs');
+const resolve = require('path').resolve;
+const pkg = require('../package.json');
+const printable = require('printable');
+const minimatch = require('minimatch');
+const Autod = require('../lib/autod');
+const program = require('commander');
+const pjoin = require('path').join;
+const util = require('util');
+const path = require('path');
+const fs = require('fs');
+require('colors');
 
-var argv = program
+const argv = program
   .version(pkg.version)
   .option('-p, --path [root path]', 'the root path to be parse', '.')
   .option('-t, --test <test/benchmark/example directory paths>', 'modules in these paths will be tread as devDependencies')
@@ -34,8 +34,8 @@ var argv = program
   .option('--check', 'check missing dependencies and devDependencies')
   .parse(process.argv);
 
-var options = {};
-var confPath;
+let options = {};
+let confPath;
 try {
   confPath = require.resolve(path.resolve('.autod.conf'));
   options = require(confPath);
@@ -47,13 +47,13 @@ try {
   // ignore
 }
 
-for (var key in argv) {
+for (const key in argv) {
   if (argv[key] !== undefined) {
     options[key] = argv[key];
   }
 }
 
-['exclude', 'dep', 'devdep', 'test', 'keep'].forEach(function (key) {
+[ 'exclude', 'dep', 'devdep', 'test', 'keep' ].forEach(function(key) {
   options[key] = split(options[key]);
 });
 
@@ -74,7 +74,7 @@ if (options.check) options.write = false;
 // get registry from pacakge.json
 // default to Chinese Mirror
 if (!options.registry) {
-  var modulePackage;
+  let modulePackage;
   try {
     modulePackage = fs.readFileSync('package.json', 'utf8');
     modulePackage = JSON.parse(modulePackage);
@@ -91,88 +91,46 @@ if (!options.registry) {
   }
 }
 
-autod(options).parse(function (err, result) {
-  if (err) {
-    console.error('[ERROR]'.red, err.message);
-    err.errorMap && console.log('[ERROR]'.red + ' Error packages path map:\n',
-     util.inspect(err.errorMap, {depth: 3, colors: true}));
-    if (!options.ignore) {
-      process.exit(1);
-    }
-  }
-  log('\n[DEPENDENCIES]\n'.green);
+const autod = new Autod(options);
+if (options.check) {
+  const allDeps = autod.findDependencies();
+  let result = { dependencies: {}, devDependencies: {} };
+  allDeps.dependencies.forEach(dep => result.dependencies[dep] = true);
+  allDeps.devDependencies.forEach(dep => result.devDependencies[dep] = true);
   comparePackage(result);
-  if (options.map) {
-    log('\n[DEPENDENCY MAP]'.green);
-    printDependencyMap(result.map);
-  }
-}).on('warn', function (msg) {
-  console.warn('[warn] '.yellow, msg);
-  process.exit(0);
-});
-
-
-function outputDep(name, values) {
-  var str = util.format('  "%s": {\n', name);
-  var deps = [];
-  for (var key in values) {
-    deps.push(util.format('    "%s": "%s"', key, values[key]));
-  }
-  str += deps.sort().join(',\n') + '\n  }';
-  return str;
-}
-
-function output(result) {
-  var str = outputDep('dependencies', result.dependencies);
-  if (!Object.keys(result.devDependencies).length) {
-    return str;
-  }
-  str += ',\n' + outputDep('devDependencies', result.devDependencies);
-  return str;
-}
-
-function printUpdates(title, latest, old, remove) {
-  latest = latest || {};
-  old = old || {};
-  var arr = [['Package Name', 'Old Version', 'Latest Version']];
-  for (var key in latest) {
-    if (!old[key]) {
-      arr.push([key, '-', latest[key]]);
-    } else if (old[key] !== latest[key]) {
-      arr.push([key, old[key], latest[key]]);
+} else {
+  autod.findVersions().then(result => {
+    result.map = autod.dependencyMap;
+    if (autod.errors.length) {
+      autod.errors.forEach(err => {
+        console.error('[ERROR]'.red, err.message);
+      });
+      if (!options.ignore) process.exit(1);
     }
-  }
-  if (remove) {
-    for (var key in old) {
-      if (!latest[key]) {
-        arr.push([key, old[key], 'remove']);
-      }
+    log('\n[DEPENDENCIES]\n'.green);
+    comparePackage(result);
+    if (options.map) {
+      log('\n[DEPENDENCY MAP]'.green);
+      printDependencyMap(result.map);
     }
-  }
-  if (arr.length > 1) {
-    log((title + ' updates').yellow + '\n');
-    log(printable.print(arr));
-    log();
-  } else {
-    log(('nothing to update in ' + title).green + '\n');
-  }
+  });
 }
 
 function comparePackage(result) {
-  var pkgInfo;
-  var pkgStr;
-  var pkgExist = true;
-  var pkgPath = pjoin(resolve(options.path), 'package.json');
+  let pkgInfo;
+  let pkgStr;
+  let pkgExist = true;
+  const pkgPath = pjoin(resolve(options.path), 'package.json');
 
   // add prefix
   if (options.prefix) {
-    for (var key in result.dependencies) {
+    for (const key in result.dependencies) {
       result.dependencies[key] = options.prefix + result.dependencies[key];
     }
   }
-  var devprefix = options.devprefix ? options.devprefix : options.prefix;
+  const devprefix = options.devprefix ? options.devprefix : options.prefix;
   if (devprefix) {
-    for (var key in result.devDependencies) {
+    for (const key in result.devDependencies) {
       result.devDependencies[key] = devprefix + result.devDependencies[key];
     }
   }
@@ -202,27 +160,27 @@ function comparePackage(result) {
 
   if (options.keep) {
     // keep these modules version, won't change by autod
-    options.keep.forEach(function (key) {
-      for (var pkgKey in result.dependencies) {
+    options.keep.forEach(function(key) {
+      for (const pkgKey in result.dependencies) {
         if (minimatch(pkgKey, key)) {
           delete result.dependencies[pkgKey];
         }
       }
-      for (var pkgKey in result.devDependencies) {
+      for (const pkgKey in result.devDependencies) {
         if (minimatch(pkgKey, key)) {
           delete result.devDependencies[pkgKey];
         }
       }
 
-      var dependencies = pkgInfo.dependencies;
-      var devDependencies = pkgInfo.devDependencies;
-      for (var pkgKey in dependencies) {
+      const dependencies = pkgInfo.dependencies;
+      const devDependencies = pkgInfo.devDependencies;
+      for (const pkgKey in dependencies) {
         if (minimatch(pkgKey, key)) {
           result.dependencies[pkgKey] = dependencies[pkgKey];
         }
       }
 
-      for (var pkgKey in devDependencies) {
+      for (const pkgKey in devDependencies) {
         if (minimatch(pkgKey, key)) {
           result.devDependencies[key] = devDependencies[key];
         }
@@ -234,14 +192,14 @@ function comparePackage(result) {
     pkgStr = pkgStr.replace(/( |\t)*"dependencies"\s*:\s*{(.|\n)*?}/,
       outputDep('dependencies', result.dependencies));
   } else {
-    pkgStr = pkgStr.replace(/(\s*)(\}\n*\s*)$/, function (end, before, after) {
+    pkgStr = pkgStr.replace(/(\s*)(\}\n*\s*)$/, function(end, before, after) {
       return ',' + before + outputDep('dependencies', result.dependencies) + '\n' + after;
     });
   }
 
   if (pkgInfo.devDependencies) {
-    //merge parsed into devDependencies
-    for (var key in pkgInfo.devDependencies) {
+    // merge parsed into devDependencies
+    for (const key in pkgInfo.devDependencies) {
       if (!result.devDependencies[key]) {
         result.devDependencies[key] = pkgInfo.devDependencies[key];
       }
@@ -249,7 +207,7 @@ function comparePackage(result) {
     pkgStr = pkgStr.replace(/( |\t)*"devDependencies"\s*:\s*{(.|\n)*?}/,
       outputDep('devDependencies', result.devDependencies));
   } else {
-    pkgStr = pkgStr.replace(/(\s*)(\}\n*\s*)$/, function (end, before, after) {
+    pkgStr = pkgStr.replace(/(\s*)(\}\n*\s*)$/, function(end, before, after) {
       return ',' + before + outputDep('devDependencies', result.devDependencies) + '\n' + after;
     });
   }
@@ -263,18 +221,18 @@ function comparePackage(result) {
   }
 
   if (options.check) {
-    var missingDependencies = [];
-    var missingDevDependencies = [];
-    var deps = result.dependencies || {};
-    var old = pkgInfo.dependencies || {};
-    for (var key in deps) {
+    const missingDependencies = [];
+    const missingDevDependencies = [];
+    const deps = result.dependencies || {};
+    const old = pkgInfo.dependencies || {};
+    for (const key in deps) {
       if (!old[key]) {
         missingDependencies.push(key);
       }
     }
-    var devDeps = result.devDependencies || {};
-    var devOld = pkgInfo.devDependencies || {};
-    for (var key in devDeps) {
+    const devDeps = result.devDependencies || {};
+    const devOld = pkgInfo.devDependencies || {};
+    for (const key in devDeps) {
       if (!devOld[key]) {
         missingDevDependencies.push(key);
       }
@@ -299,10 +257,10 @@ function processSemver(semver) {
   if (typeof semver === 'string') {
     semver = semver.split(/\s*,\s*/);
   }
-  var map = {};
+  const map = {};
 
-  semver.forEach(function (m) {
-    var prefix = '';
+  semver.forEach(function(m) {
+    let prefix = '';
     if (m.indexOf('@') === 0) {
       prefix = '@';
       m = m.slice(1);
@@ -315,8 +273,54 @@ function processSemver(semver) {
   return map;
 }
 
+function outputDep(name, values) {
+  let str = util.format('  "%s": {\n', name);
+  const deps = [];
+  for (const key in values) {
+    deps.push(util.format('    "%s": "%s"', key, values[key]));
+  }
+  str += deps.sort().join(',\n') + '\n  }';
+  return str;
+}
+
+function output(result) {
+  let str = outputDep('dependencies', result.dependencies);
+  if (!Object.keys(result.devDependencies).length) {
+    return str;
+  }
+  str += ',\n' + outputDep('devDependencies', result.devDependencies);
+  return str;
+}
+
+function printUpdates(title, latest, old, remove) {
+  latest = latest || {};
+  old = old || {};
+  const arr = [[ 'Package Name', 'Old Version', 'Latest Version' ]];
+  for (const key in latest) {
+    if (!old[key]) {
+      arr.push([ key, '-', latest[key] ]);
+    } else if (old[key] !== latest[key]) {
+      arr.push([ key, old[key], latest[key] ]);
+    }
+  }
+  if (remove) {
+    for (const key in old) {
+      if (!latest[key]) {
+        arr.push([ key, old[key], 'remove' ]);
+      }
+    }
+  }
+  if (arr.length > 1) {
+    log((title + ' updates').yellow + '\n');
+    log(printable.print(arr));
+    log();
+  } else {
+    log(('nothing to update in ' + title).green + '\n');
+  }
+}
+
 function printDependencyMap(map) {
-  Object.keys(map).sort().forEach(function (name) {
+  Object.keys(map).sort().forEach(function(name) {
     console.log(('  ' + name).cyan);
     console.log(('    ' + map[name].join('\n    ')).grey);
   });
