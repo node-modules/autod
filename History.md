@@ -1,4 +1,13 @@
 
+3.0.1 / 2017-11-13
+==================
+
+**fixes**
+  * [[`fb286d6`](http://github.com/node-modules/autod/commit/fb286d6f59ec5d6107cbe28d56bca37a0e01ef99)] - fix: devDependencies in dependencies should pass autod check (#31) (Yiyu He <<dead_horse@qq.com>>)
+
+**others**
+  * [[`b470681`](http://github.com/node-modules/autod/commit/b470681215df58441e83bfe00c428e9bcc92bb53)] - chore: clean (dead-horse <<dead_horse@qq.com>>)
+
 3.0.0 / 2017-11-11
 ==================
 
