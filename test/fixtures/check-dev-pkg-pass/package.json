@@ -1,0 +1,9 @@
+{
+  "name": "deps-exists-demo",
+  "dependencies": {
+    "debug": "*",
+    "urllib": "*"
+  },
+  "devDependencies": {
+  }
+}

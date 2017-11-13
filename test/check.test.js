@@ -23,4 +23,12 @@ describe('autod --check', () => {
       .expect('code', 0)
       .end();
   });
+
+  it('should exit code 0 when devDependencies in dependencies', () => {
+    const cwd = path.join(__dirname, 'fixtures/check-dev-pkg-pass');
+    return coffee.fork(autod, [ '--check' ], { cwd })
+      .debug()
+      .expect('code', 0)
+      .end();
+  });
 });

@@ -237,7 +237,7 @@ function comparePackage(result) {
     const devDeps = result.devDependencies || {};
     const devOld = pkgInfo.devDependencies || {};
     for (const key in devDeps) {
-      if (!devOld[key]) {
+      if (!devOld[key] && !old[key]) {
         missingDevDependencies.push(key);
       }
     }
