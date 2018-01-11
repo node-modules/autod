@@ -30,14 +30,14 @@
     "babel-preset-stage-0": "^6.24.1",
     "co": "^4.6.0",
     "colors": "^1.1.2",
-    "commander": "^2.11.0",
+    "commander": "^2.13.0",
     "crequire": "^1.8.1",
     "debug": "^3.1.0",
     "fs-readdir-recursive": "^1.1.0",
     "glob": "^7.1.2",
     "minimatch": "^3.0.4",
     "printable": "^0.0.3",
-    "urllib": "^2.25.1"
+    "urllib": "^2.25.3"
   },
   "devDependencies": {
     "coffee": "^4.1.0",
