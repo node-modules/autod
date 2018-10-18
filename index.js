@@ -33,6 +33,7 @@ class Autod extends EventEmitter {
     options.registry = options.registry.replace(/\/?$/, '');
     options.dep = options.dep || [];
     options.devdep = options.devdep || [];
+    options.depignore = options.depignore || [];
     options.root = path.resolve(this.options.root);
     if (options.plugin) {
       try {
@@ -189,6 +190,7 @@ class Autod extends EventEmitter {
       let name = parsed[2];
       if (scope) name = scope + name;
       if (this._isCoreModule(name)) return;
+      if (this.options.depignore.includes(name)) return;
       modules.push(name);
       this.dependencyMap[name] = this.dependencyMap[name] || [];
       this.dependencyMap[name].push(filePath);
