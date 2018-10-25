@@ -1,0 +1,2 @@
+require('egg');
+require('umi');
