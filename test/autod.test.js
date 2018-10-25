@@ -54,6 +54,16 @@ describe('autod', () => {
     assert(!res.stdout.match(/egg/));
   });
 
+  it('should support add depignore modules', function* () {
+    const cwd = path.join(__dirname, 'fixtures/depignore');
+    const res = yield coffee.fork(autod, [ '--prefix=^', '--depignore=umi' ], { cwd })
+      .debug()
+      .expect('code', 0)
+      .end();
+    assert(res.stdout.match(/egg/));
+    assert(!res.stdout.match(/umi/));
+  });
+
   it('should support add semver', () => {
     const cwd = path.join(__dirname, 'fixtures/check-pkg');
     return coffee.fork(autod, [ '--prefix=^', '--semver=debug@1' ], { cwd })

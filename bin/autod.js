@@ -32,6 +32,7 @@ const argv = program
   .option('-n, --notransform', 'disable transfrom es next, don\'t support es6 modules')
   .option('-P, --plugin <name>', 'plugin module name')
   .option('--check', 'check missing dependencies and devDependencies')
+  .option('--depignore <modules>', 'ignore modules, these modules would be ignore and excluded')
   .parse(process.argv);
 
 let options = {};
@@ -53,7 +54,7 @@ for (const key in argv) {
   }
 }
 
-[ 'exclude', 'dep', 'devdep', 'test', 'keep' ].forEach(function(key) {
+[ 'exclude', 'dep', 'devdep', 'depignore', 'test', 'keep' ].forEach(function(key) {
   options[key] = split(options[key]);
 });
 
