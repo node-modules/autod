@@ -48,6 +48,7 @@ $ bin/autod -h
     -D, --devdep <dev dependently modules>               modules that not require in source file, but you need them in as devDependencies
     -k, --keep <dependently modules>                     modules that you want to keep version in package.json file
     -s, --semver <dependencies@version>                  auto update these modules within the specified semver
+    --depignore <modules>                                modules that you want to ignore, it useful in modules alias or lerna project
 ```
 
 * Autod will parse all the js files in `path`, and you can exclude folder by `-e, --exclude`.
