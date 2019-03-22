@@ -196,7 +196,7 @@ class Autod extends EventEmitter {
 
     // support plugin parse file
     if (this.options.plugin) {
-      const pluginModules = this.options.plugin(filePath, file) || [];
+      const pluginModules = this.options.plugin(filePath, file, modules) || [];
       pluginModules.forEach(name => {
         modules.push(name);
         this.dependencyMap[name] = this.dependencyMap[name] || [];
