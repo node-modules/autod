@@ -10,6 +10,7 @@ const crequire = require('crequire');
 const EventEmitter = require('events');
 const co = require('co');
 const urllib = require('urllib');
+const semver = require('semver');
 
 const DEFAULT_EXCLUDE = [ '.git', 'cov', 'coverage', '.vscode' ];
 const DEFAULT_TEST = [ 'test', 'tests', 'test.js', 'benchmark', 'example', 'example.js' ];
@@ -146,9 +147,21 @@ class Autod extends EventEmitter {
       const tag = this.options.semver.hasOwnProperty(name)
         ? this.options.semver[name]
         : 'latest';
-      const url = `${this.options.registry}/${name}/${tag}`;
+
+
+      let url = `${this.options.registry}/${name}/${tag}`;
+      let isAllVersions = false;
+      // npm don't support range now
+      if (semver.validRange(tag)) {
+        url = `${this.options.registry}/${name}`;
+        isAllVersions = true;
+      }
       const res = yield urllib.request(url, {
-        headers: { 'user-agent': USER_AGENT },
+        headers: {
+          'user-agent': USER_AGENT,
+          // npm will response less data
+          accept: 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*',
+         },
         gzip: true,
         timeout: 10000,
         dataType: 'json',
@@ -156,7 +169,14 @@ class Autod extends EventEmitter {
       if (res.status !== 200) {
         throw new Error(`request ${url} response status ${res.status}`);
       }
-      const version = res.data && res.data.version;
+      let version;
+      if (isAllVersions) {
+      // match semver in local
+        const versions = res.data && res.data.versions;
+        if (versions) version = semver.maxSatisfying(Object.keys(versions), tag);
+      } else {
+        version = res.data && res.data.version;
+      }
       if (!version) {
         throw new Error(`no match remote version for ${name}@${tag}`);
       }
