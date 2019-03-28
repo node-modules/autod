@@ -11,8 +11,8 @@ describe('autod --check', () => {
     return coffee.fork(autod, [ '--check' ], { cwd })
       .debug()
       .expect('code', 1)
-      .expect('stderr', /\[ERROR\] Missing dependencies: \["debug"\]/)
-      .expect('stderr', /\[ERROR\] Missing devDependencies: \["urllib"\]/)
+      .expect('stderr', /debug/)
+      .expect('stderr', /urllib/)
       .end();
   });
 
