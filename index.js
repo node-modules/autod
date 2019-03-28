@@ -11,7 +11,7 @@ const EventEmitter = require('events');
 const co = require('co');
 const urllib = require('urllib');
 
-const DEFAULT_EXCLUDE = [ '.git', 'cov', 'coverage' ];
+const DEFAULT_EXCLUDE = [ '.git', 'cov', 'coverage', '.vscode' ];
 const DEFAULT_TEST = [ 'test', 'tests', 'test.js', 'benchmark', 'example', 'example.js' ];
 const USER_AGENT = `autod@${require('./package').version} ${urllib.USER_AGENT}`;
 const MODULE_REG = /^(@[0-9a-zA-Z\-\_][0-9a-zA-Z\.\-\_]*\/)?([0-9a-zA-Z\-\_][0-9a-zA-Z\.\-\_]*)/;
