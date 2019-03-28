@@ -1,4 +1,14 @@
 
+3.1.0 / 2019-03-28
+==================
+
+**features**
+  * [[`82db2fd`](http://github.com/node-modules/autod/commit/82db2fd1e84130e76a436102733982e536876822)] - feat: pass modules to plugin (gliudong <<gliudong@users.noreply.github.com>>)
+
+**fixes**
+  * [[`0864e9a`](http://github.com/node-modules/autod/commit/0864e9a942a4180b888c7ece3f9492084f086bc6)] - fix: range must parse in local (#39) (Yiyu He <<dead_horse@qq.com>>)
+  * [[`87614ad`](http://github.com/node-modules/autod/commit/87614ad507afcaaca6bc8ce989b6ac8ee4a2d7cb)] - fix: should ignore vscode config (#36) (TZ | 天猪 <<atian25@qq.com>>)
+
 3.0.1 / 2017-11-13
 ==================
 
