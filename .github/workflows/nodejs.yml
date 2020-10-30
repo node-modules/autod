@@ -8,8 +8,6 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  schedule:
-    - cron: '0 2 * * *'
 
 jobs:
   build:
@@ -18,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [4, 6, 8]
+        node-version: [8, 10, 12]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
