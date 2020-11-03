@@ -50,10 +50,10 @@ class Autod extends EventEmitter {
     options.exclude = [];
     options.test = [];
     exclude.forEach(e => {
-      options.exclude = options.exclude.concat(glob.sync(path.join(options.root, e)));
+      options.exclude = options.exclude.concat(glob.sync(path.join(options.root, e)).map(path.normalize));
     });
     test.forEach(t => {
-      options.test = options.test.concat(glob.sync(path.join(options.root, t)));
+      options.test = options.test.concat(glob.sync(path.join(options.root, t)).map(path.normalize));
     });
 
     // store dependencies appear in which files
@@ -67,7 +67,7 @@ class Autod extends EventEmitter {
     const files = readdir(this.options.root, (name, index, dir) => {
       const fullname = path.join(dir, name);
       // ignore all node_modules
-      if (fullname.indexOf('/node_modules/') >= 0) return false;
+      if (fullname.indexOf(`${path.sep}node_modules${path.sep}`) >= 0) return false;
       // ignore specified exclude directories or files
       if (this._contains(fullname, this.options.exclude)) return false;
 
