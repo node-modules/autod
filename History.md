@@ -1,4 +1,13 @@
 
+3.1.1 / 2020-11-03
+==================
+
+**fixes**
+  * [[`c33cf61`](http://github.com/node-modules/autod/commit/c33cf616007d546ce0848a6efd60769abe310626)] - fix: path compatibility at windows (#48) (weijiafu14 <<1527752351@qq.com>>)
+
+**others**
+  * [[`1a3994a`](http://github.com/node-modules/autod/commit/1a3994a4b8ea63dd802f26235c15e0f2be7c6aa6)] - chore: GitHub Actions (#47) (weijiafu14 <<1527752351@qq.com>>)
+
 3.1.0 / 2019-03-28
 ==================
 
