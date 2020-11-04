@@ -21,7 +21,9 @@
     "autod": "bin/autod.js -w --prefix='^' --exclude=test/fixtures",
     "lint": "eslint lib bin test/*.test.js",
     "test": "egg-bin test",
-    "ci": "npm run lint && egg-bin cov"
+    "ci": "npm run lint && egg-bin cov",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -38,7 +40,8 @@
     "minimatch": "^3.0.4",
     "printable": "^0.0.3",
     "semver": "^6.0.0",
-    "urllib": "^2.25.1"
+    "urllib": "^2.25.1",
+    "snyk": "^1.231.0"
   },
   "devDependencies": {
     "coffee": "^4.1.0",
@@ -50,5 +53,6 @@
   },
   "ci": {
     "version": "4, 6, 8"
-  }
+  },
+  "snyk": true
 }
