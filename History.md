@@ -1,4 +1,10 @@
 
+3.1.2 / 2021-11-15
+==================
+
+**others**
+  * [[`cdf99e8`](http://github.com/node-modules/autod/commit/cdf99e80f8ca61b0d3f71bb6fde116f445fc4c92)] - chore: update taobao npm registry url (#50) (Janlay <<36876080+Janlaywss@users.noreply.github.com>>)
+
 3.1.1 / 2020-11-03
 ==================
 
