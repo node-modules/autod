@@ -30,7 +30,7 @@ class Autod extends EventEmitter {
     assert(options.root, 'options.root required');
     // default options
     options.semver = options.semver || {};
-    options.registry = options.registry || 'https://registry.npm.taobao.org';
+    options.registry = options.registry || 'https://registry.npmmirror.com';
     options.registry = options.registry.replace(/\/?$/, '');
     options.dep = options.dep || [];
     options.devdep = options.devdep || [];
