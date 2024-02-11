@@ -38,7 +38,7 @@
     "minimatch": "^3.0.4",
     "printable": "^0.0.3",
     "semver": "^6.0.0",
-    "urllib": "^2.25.1"
+    "urllib": "^3.0.0"
   },
   "devDependencies": {
     "coffee": "^4.1.0",
